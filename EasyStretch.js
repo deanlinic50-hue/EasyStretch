@@ -1,34 +1,14 @@
 // ============================================================
-//  EasyStretch.js  v1.0.0
-//
+//  EasyStretch.js  v1.2.0
 //  Copyright (C) 2026 Dean Linic
-//
-//  Redistribution and use in source and binary forms, with or
-//  without modification, is permitted provided that the source
-//  code retains the above copyright notice.
-//
-//  EasyStretch is a PixInsight script for interactive
-//  stretching of RGB/OSC astronomical images with live preview.
-//
-//  Features:
-//    - Live preview at 1/4 resolution for fast response
-//    - Blackpoint, General Stretch, Contrast
-//    - Background, Midtones, Highlights adjustments
-//    - Multi-layer stretching via Apply & Continue
-//    - Image selector for multiple open windows
-//    - Create New Photo output
+//  RGB/OSC stretching — single preview with optional zoom
 // ============================================================
 
 #feature-id    Utilities > EasyStretch
 #feature-info  Interactive stretching for RGB/OSC images with live preview.<br/>\
-               Supports multi-layer stretching via Apply and Continue.<br/>\
-               <br/>\
                Copyright &copy; 2026 Dean Linic
 
-#feature-icon  @script_icons_dir/EasyStretch.png
-
-var EASYSTRETCH_VERSION = "1.0.0";
-
+var EASYSTRETCH_VERSION = "1.2.0";
 var G_TMP = null;
 
 function cloneImg(src) {
@@ -67,84 +47,97 @@ function scaleImage(img,f) {
    out.assign(img); out.resample(f); return out;
 }
 
-// ============================================================
-//  PROCESS
-// ============================================================
-function processImage(src, p) {
-   var img = cloneImg(src);
-
-   if (p.blackpoint > 0)
-      runHT(img, p.blackpoint*0.15, 0.5, 1);
-
-   if (p.stretch > 0) {
-      var m = Math.pow(2, -(1+p.stretch*0.35));
-      runHT(img, 0, Math.max(0.001,Math.min(0.49,m)), 1);
+function processImage(src,p) {
+   var img=cloneImg(src);
+   if (p.blackpoint>0) runHT(img,p.blackpoint*0.15,0.5,1);
+   if (p.stretch>0) {
+      var m=Math.pow(2,-(1+p.stretch*0.35));
+      runHT(img,0,Math.max(0.001,Math.min(0.49,m)),1);
    }
-
-   if (p.contrast !== 0) {
-      var lo = p.contrast>0 ? p.contrast*0.03 : 0;
-      var hi = p.contrast>0 ? 1 : 1+p.contrast*0.03;
-      runHT(img, lo, 0.5, hi);
+   if (p.contrast!==0) {
+      var lo=p.contrast>0?p.contrast*0.03:0;
+      var hi=p.contrast>0?1:1+p.contrast*0.03;
+      runHT(img,lo,0.5,hi);
    }
-
-   if (p.background !== 0) {
-      var blo = p.background<0 ? -p.background*0.04 : 0;
-      var bhi = p.background>0 ? 1-p.background*0.04 : 1;
-      runHT(img, blo, 0.5, bhi);
+   if (p.background!==0) {
+      var blo=p.background<0?-p.background*0.04:0;
+      var bhi=p.background>0?1-p.background*0.04:1;
+      runHT(img,blo,0.5,bhi);
    }
-
-   if (Math.abs(p.midtones-0.5) > 0.001) {
-      var mMid = 1.0-p.midtones;
-      runHT(img, 0, Math.max(0.05,Math.min(0.95,mMid)), 1);
+   if (Math.abs(p.midtones-0.5)>0.001) {
+      var mMid=1.0-p.midtones;
+      runHT(img,0,Math.max(0.05,Math.min(0.95,mMid)),1);
    }
-
-   if (p.highlights < 0.49) {
+   if (p.highlights<0.49) {
       img.invert();
-      var hStr = (0.5-p.highlights)*3.0;
-      runHT(img, 0, Math.max(0.05,Math.min(0.45,0.5-hStr*0.08)), 1);
+      var hStr=(0.5-p.highlights)*3.0;
+      runHT(img,0,Math.max(0.05,Math.min(0.45,0.5-hStr*0.08)),1);
       img.invert();
-   } else if (p.highlights > 0.51) {
-      var hStr2 = (p.highlights-0.5)*3.0;
-      runHT(img, 0.6, Math.max(0.05,Math.min(0.45,0.5-hStr2*0.08)), 1);
+   } else if (p.highlights>0.51) {
+      var hStr2=(p.highlights-0.5)*3.0;
+      runHT(img,0.6,Math.max(0.05,Math.min(0.45,0.5-hStr2*0.08)),1);
    }
-
    return img;
 }
 
-// ============================================================
-//  RENDER — pixel loop on 25% preview image
-// ============================================================
-function renderBitmap(res, PW, PH) {
-   var scaleW=PW/res.width, scaleH=PH/res.height;
-   var scale=Math.min(scaleW,scaleH);
-   var dw=Math.max(1,Math.round(res.width*scale));
-   var dh=Math.max(1,Math.round(res.height*scale));
-   var scaled=scaleImage(res,scale);
-
-   var med=res.median(), lo, range;
-   if (med>0.05) {
-      lo=0; range=1.0;
-   } else {
-      var mad=res.MAD(); if(mad<1e-7) mad=0.001;
-      var sigma=mad*1.4826;
-      lo=Math.max(0,med-2.8*sigma);
-      range=Math.min(1.0,med+20.0*sigma)-lo;
+function normParams(img) {
+   var med=img.median(), lo, range;
+   if (med>0.05) { lo=0; range=1.0; }
+   else {
+      var mad=img.MAD(); if(mad<1e-7) mad=0.001;
+      var s=mad*1.4826;
+      lo=Math.max(0,med-2.8*s);
+      range=Math.min(1.0,med+20.0*s)-lo;
       if(range<0.0001) range=0.0001;
    }
+   return {lo:lo,range:range};
+}
 
+// Render full image into W x H bitmap
+function renderFull(img,W,H) {
+   var scale=Math.min(W/img.width,H/img.height);
+   var dw=Math.max(1,Math.round(img.width*scale));
+   var dh=Math.max(1,Math.round(img.height*scale));
+   var sc=scaleImage(img,scale);
+   var n=normParams(img);
    var bmp=new Bitmap(dw,dh);
-   var ch=scaled.numberOfChannels;
-   for(var y=0;y<dh;y++) {
-      for(var x=0;x<dw;x++) {
+   var ch=sc.numberOfChannels;
+   for(var y=0;y<dh;y++) for(var x=0;x<dw;x++) {
+      var r,g,b;
+      if(ch===1){var v=Math.min(1,Math.max(0,(sc.sample(x,y,0)-n.lo)/n.range));r=g=b=Math.round(v*255);}
+      else{r=Math.min(255,Math.max(0,Math.round((sc.sample(x,y,0)-n.lo)/n.range*255)));
+           g=Math.min(255,Math.max(0,Math.round((sc.sample(x,y,1)-n.lo)/n.range*255)));
+           b=Math.min(255,Math.max(0,Math.round((sc.sample(x,y,2)-n.lo)/n.range*255)));}
+      bmp.setPixel(x,y,(0xFF<<24)|(r<<16)|(g<<8)|b);
+   }
+   return bmp;
+}
+
+// Render zoomed crop — pure pixel reads, no temp windows
+function renderZoom(img,cx,cy,level,W,H) {
+   var cw=1.0/level, ch=1.0/level;
+   var x0=Math.max(0,Math.min(1-cw,cx-cw/2));
+   var y0=Math.max(0,Math.min(1-ch,cy-ch/2));
+   var sw=img.width, sh=img.height;
+   var px0=Math.max(0,Math.min(sw-1,Math.round(x0*sw)));
+   var py0=Math.max(0,Math.min(sh-1,Math.round(y0*sh)));
+   var pw=Math.max(1,Math.round(cw*sw));
+   var ph=Math.max(1,Math.round(ch*sh));
+   var scale=Math.min(W/pw,H/ph);
+   var dw=Math.max(1,Math.round(pw*scale));
+   var dh=Math.max(1,Math.round(ph*scale));
+   var n=normParams(img);
+   var bmp=new Bitmap(dw,dh);
+   var ich=img.numberOfChannels;
+   for(var y=0;y<dh;y++){
+      var sy=Math.max(0,Math.min(sh-1,py0+Math.round(y/scale)));
+      for(var x=0;x<dw;x++){
+         var sx=Math.max(0,Math.min(sw-1,px0+Math.round(x/scale)));
          var r,g,b;
-         if(ch===1) {
-            var v=Math.min(1,Math.max(0,(scaled.sample(x,y,0)-lo)/range));
-            r=g=b=Math.round(v*255);
-         } else {
-            r=Math.min(255,Math.max(0,Math.round((scaled.sample(x,y,0)-lo)/range*255)));
-            g=Math.min(255,Math.max(0,Math.round((scaled.sample(x,y,1)-lo)/range*255)));
-            b=Math.min(255,Math.max(0,Math.round((scaled.sample(x,y,2)-lo)/range*255)));
-         }
+         if(ich===1){var v=Math.min(1,Math.max(0,(img.sample(sx,sy,0)-n.lo)/n.range));r=g=b=Math.round(v*255);}
+         else{r=Math.min(255,Math.max(0,Math.round((img.sample(sx,sy,0)-n.lo)/n.range*255)));
+              g=Math.min(255,Math.max(0,Math.round((img.sample(sx,sy,1)-n.lo)/n.range*255)));
+              b=Math.min(255,Math.max(0,Math.round((img.sample(sx,sy,2)-n.lo)/n.range*255)));}
          bmp.setPixel(x,y,(0xFF<<24)|(r<<16)|(g<<8)|b);
       }
    }
@@ -162,16 +155,14 @@ function EasyStretchDialog() {
 
    var self=this;
 
-   // Collect open image windows (exclude internal temp windows)
    var windows=ImageWindow.windows;
    this.imageWindows=[];
    for(var i=0;i<windows.length;i++){
       var w=windows[i];
       if(!w.isNull&&!w.mainView.isNull
          &&w.mainView.id.indexOf("_es_")<0
-         &&w.mainView.id.indexOf("EasyStretch")<0){
+         &&w.mainView.id.indexOf("EasyStretch")<0)
          this.imageWindows.push(w);
-      }
    }
    if(this.imageWindows.length===0){this.srcView=null;return;}
 
@@ -189,34 +180,102 @@ function EasyStretchDialog() {
    this.p={blackpoint:0,stretch:5,contrast:0,
            background:0,midtones:0.5,highlights:0.5};
 
-   // Canvas dimensions based on image aspect ratio
-   var PW=820;
-   var PH=Math.round(PW*this.origImg.height/this.origImg.width);
-   if(PH>620){PH=620;PW=Math.round(PH*this.origImg.width/this.origImg.height);}
-   this.PW=PW; this.PH=PH;
-   this.previewBitmap=null;
    this.lastRes=null;
+   this.previewBitmap=null;
+   this.zoomMode=false;   // false=full, true=zoomed
+   this.zoomCX=0.5; this.zoomCY=0.5;
+   this.zoomLevel=4;
+   this.dragStart=null;
+   this.dragRect=null;    // {x,y,w,h} in canvas pixels while dragging
 
+   // Canvas size
+   var PW=750;
+   var PH=Math.round(PW*this.origImg.height/this.origImg.width);
+   if(PH>600){PH=600;PW=Math.round(PH*this.origImg.width/this.origImg.height);}
+   this.PW=PW; this.PH=PH;
+
+   // ── Single canvas ────────────────────────────────────────
    this.canvas=new Control(this);
    this.canvas.setFixedSize(PW,PH);
+
    this.canvas.onPaint=function(){
       var g=new VectorGraphics(self.canvas);
       var cw=self.canvas.width, ch=self.canvas.height;
       g.fillRect(0,0,cw,ch,new Brush(0xFF111111));
+
       if(self.previewBitmap!==null){
          var bw=self.previewBitmap.width, bh=self.previewBitmap.height;
-         g.drawBitmap(Math.max(0,Math.round((cw-bw)/2)),
-                      Math.max(0,Math.round((ch-bh)/2)),
-                      self.previewBitmap);
+         var ox=Math.max(0,Math.round((cw-bw)/2));
+         var oy=Math.max(0,Math.round((ch-bh)/2));
+         g.drawBitmap(ox,oy,self.previewBitmap);
+
+         // Draw drag rectangle while selecting zoom area
+         if(!self.zoomMode && self.dragRect!==null){
+            g.pen=new Pen(0xFFFFFF00,1);
+            g.drawRect(self.dragRect.x, self.dragRect.y,
+                       self.dragRect.x+self.dragRect.w,
+                       self.dragRect.y+self.dragRect.h);
+         }
+
+         // In zoom mode show small crosshair only
+         if(self.zoomMode){
+            var label="Zoom "+self.zoomLevel+"x  —  click 'Reset Zoom' to go back";
+            g.pen=new Pen(0xFFFFFF88,1);
+            g.drawText(8,18,label);
+         }
       }
       g.end();
    };
 
+   // Mouse: drag rectangle to zoom in, only when NOT in zoom mode
+   this.canvas.onMousePress=function(x,y,btn){
+      if(self.zoomMode) return;
+      self.dragStart={x:x,y:y};
+      self.dragRect=null;
+   };
+
+   this.canvas.onMouseMove=function(x,y,btn){
+      if(self.dragStart===null||self.zoomMode) return;
+      self.dragRect={
+         x:Math.min(self.dragStart.x,x),
+         y:Math.min(self.dragStart.y,y),
+         w:Math.abs(x-self.dragStart.x),
+         h:Math.abs(y-self.dragStart.y)
+      };
+      self.canvas.repaint();
+   };
+
+   this.canvas.onMouseRelease=function(x,y,btn){
+      if(self.zoomMode||self.dragStart===null) return;
+      if(self.dragRect!==null && self.dragRect.w>15 && self.dragRect.h>15
+         && self.previewBitmap!==null){
+         // Convert drag rect to normalized image coords
+         var bw=self.previewBitmap.width, bh=self.previewBitmap.height;
+         var ox=Math.max(0,Math.round((self.PW-bw)/2));
+         var oy=Math.max(0,Math.round((self.PH-bh)/2));
+         var rx=(self.dragRect.x-ox)/bw;
+         var ry=(self.dragRect.y-oy)/bh;
+         var rw=self.dragRect.w/bw;
+         var rh=self.dragRect.h/bh;
+         // Center of rect
+         self.zoomCX=Math.max(0,Math.min(1,rx+rw/2));
+         self.zoomCY=Math.max(0,Math.min(1,ry+rh/2));
+         // Choose zoom level based on rect size
+         var avgSize=(rw+rh)/2;
+         self.zoomLevel=avgSize<0.15?8:avgSize<0.35?4:2;
+         self.btnZoomReset.enabled=true;
+         self.zoomMode=true;
+         self.updateLevelButtons();
+         self.renderPreview();
+      }
+      self.dragStart=null; self.dragRect=null;
+   };
+
    // ── Slider helper ────────────────────────────────────────
    function mkSlider(lbl,lo,hi,def,prec,key){
-      var label=new Label(self); label.text=lbl+":"; label.minWidth=160;
-      var sld=new Slider(self); sld.minWidth=200; sld.setRange(0,500);
-      var edt=new Edit(self); edt.readOnly=true; edt.minWidth=64; edt.maxWidth=64;
+      var label=new Label(self); label.text=lbl+":"; label.minWidth=165;
+      var sld=new Slider(self); sld.minWidth=190; sld.setRange(0,500);
+      var edt=new Edit(self); edt.readOnly=true; edt.minWidth=62; edt.maxWidth=62;
       function v2s(v){return Math.round((v-lo)/(hi-lo)*500);}
       function s2v(s){return lo+s/500*(hi-lo);}
       sld.value=v2s(def); edt.text=def.toFixed(prec);
@@ -250,10 +309,12 @@ function EasyStretchDialog() {
       if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
       ensureTmp(self.previewImg);
       self.appliedLayers=0;
+      self.zoomMode=false;
+      self.btnZoomReset.enabled=false;
       self.windowTitle="EasyStretch v"+EASYSTRETCH_VERSION;
-      var nPW=820;
+      var nPW=750;
       var nPH=Math.round(nPW*self.origImg.height/self.origImg.width);
-      if(nPH>620){nPH=620;nPW=Math.round(nPH*self.origImg.width/self.origImg.height);}
+      if(nPH>600){nPH=600;nPW=Math.round(nPH*self.origImg.width/self.origImg.height);}
       self.PW=nPW; self.PH=nPH;
       self.canvas.setFixedSize(nPW,nPH);
       self.adjustToContents();
@@ -262,16 +323,43 @@ function EasyStretchDialog() {
    var imgRow=new Sizer(false); imgRow.spacing=6;
    imgRow.add(imgLbl); imgRow.add(this.imgCombo); imgRow.addStretch();
 
-   // ── GROUP 1 — General Stretch ─────────────────────────────
+   // ── Zoom controls ────────────────────────────────────────
+   var zHint=new Label(this);
+   zHint.text="Drag rectangle on preview to zoom in";
+
+   this.btnZoomReset=new PushButton(this);
+   this.btnZoomReset.text="⊡  Reset Zoom";
+   this.btnZoomReset.enabled=false;
+   this.btnZoomReset.onClick=function(){
+      self.zoomMode=false;
+      self.btnZoomReset.enabled=false;
+      self.updateLevelButtons();
+      self.renderPreview();
+   };
+
+   var zLbl=new Label(this); zLbl.text="Level:";
+   this.btnZ2=new PushButton(this); this.btnZ2.text="2x"; this.btnZ2.minWidth=36;
+   this.btnZ4=new PushButton(this); this.btnZ4.text="4x"; this.btnZ4.minWidth=36;
+   this.btnZ8=new PushButton(this); this.btnZ8.text="8x"; this.btnZ8.minWidth=36;
+   this.btnZ2.onClick=function(){self.zoomLevel=2;if(self.zoomMode)self.renderPreview();};
+   this.btnZ4.onClick=function(){self.zoomLevel=4;if(self.zoomMode)self.renderPreview();};
+   this.btnZ8.onClick=function(){self.zoomLevel=8;if(self.zoomMode)self.renderPreview();};
+
+   var zRow=new Sizer(false); zRow.spacing=6;
+   zRow.add(zHint); zRow.addStretch();
+   zRow.add(this.btnZoomReset);
+   zRow.add(zLbl);
+   zRow.add(this.btnZ2); zRow.add(this.btnZ4); zRow.add(this.btnZ8);
+
+   // ── Groups ───────────────────────────────────────────────
    this.g1=mkGroup("1 · General Stretch");
    this.slBlackpoint=mkSlider("Blackpoint",      0,  1, 0,  3,"blackpoint");
    this.slStretch   =mkSlider("General Stretch", 0, 30, 5,  2,"stretch"   );
-   this.slContrast  =mkSlider("Contrast",        -8, 8, 0,  2,"contrast"  );
+   this.slContrast  =mkSlider("Contrast",       -8,  8, 0,  2,"contrast"  );
    this.g1.sizer.add(this.slBlackpoint);
    this.g1.sizer.add(this.slStretch);
    this.g1.sizer.add(this.slContrast);
 
-   // ── GROUP 2 — Background / Midtones / Highlights ─────────
    this.g2=mkGroup("2 · Background · Midtones · Highlights");
    this.slBackground=mkSlider("Background",                 -3,   3, 0,   3,"background");
    this.slMidtones  =mkSlider("Midtones  (L=dark R=light)", 0.02,0.98,0.5, 3,"midtones"  );
@@ -280,10 +368,8 @@ function EasyStretchDialog() {
    this.g2.sizer.add(this.slMidtones);
    this.g2.sizer.add(this.slHighlights);
 
-   // ── BUTTONS ───────────────────────────────────────────────
-   this.btnReset=new PushButton(this);
-   this.btnReset.text="↺  Reset";
-   this.btnReset.toolTip="Reset all sliders to default values.";
+   // ── Buttons ──────────────────────────────────────────────
+   this.btnReset=new PushButton(this); this.btnReset.text="↺  Reset";
    this.btnReset.onClick=function(){
       self.slBlackpoint.setValue(0); self.slStretch.setValue(5);
       self.slContrast.setValue(0);   self.slBackground.setValue(0);
@@ -291,11 +377,8 @@ function EasyStretchDialog() {
       self.doRefresh();
    };
 
-   this.btnApply=new PushButton(this);
-   this.btnApply.text="▶  Apply & Continue";
-   this.btnApply.toolTip=
-      "Bake current parameters into the image and reset sliders.\n"+
-      "Use this for multi-layer stretching, like GHS apply.";
+   this.btnApply=new PushButton(this); this.btnApply.text="▶  Apply & Continue";
+   this.btnApply.toolTip="Bake parameters and reset sliders for next layer.";
    this.btnApply.onClick=function(){
       self.previewImg=processImage(self.previewImg,self.p);
       self.origImg=processImage(self.origImg,self.p);
@@ -310,11 +393,8 @@ function EasyStretchDialog() {
       self.doRefresh();
    };
 
-   this.btnCreate=new PushButton(this);
-   this.btnCreate.text="✅  Create New Photo";
-   this.btnCreate.toolTip=
-      "Apply all parameters and create a new image window.\n"+
-      "The original image is not modified.";
+   this.btnCreate=new PushButton(this); this.btnCreate.text="✅  Create New Photo";
+   this.btnCreate.toolTip="Apply all parameters and create new image. Original untouched.";
    this.btnCreate.onClick=function(){
       if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
       ensureTmp(self.origImg);
@@ -322,39 +402,36 @@ function EasyStretchDialog() {
       var nid=self.srcView.id+"_EasyStretch";
       var nw=new ImageWindow(res.width,res.height,res.numberOfChannels,
          res.bitsPerSample,res.isReal,res.numberOfChannels>1,nid);
-      nw.mainView.beginProcess(0);
-      nw.mainView.image.assign(res);
-      nw.mainView.endProcess();
+      nw.mainView.beginProcess(0); nw.mainView.image.assign(res); nw.mainView.endProcess();
       nw.show(); nw.bringToFront();
       if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
       ensureTmp(self.previewImg);
    };
 
-   this.btnClose=new PushButton(this);
-   this.btnClose.text="Close";
+   this.btnClose=new PushButton(this); this.btnClose.text="Close";
    this.btnClose.onClick=function(){
       if(G_TMP&&!G_TMP.isNull) G_TMP.forceClose();
       self.cancel();
    };
 
    var btnRow=new Sizer(false); btnRow.spacing=6;
-   btnRow.add(this.btnReset);
-   btnRow.add(this.btnApply);
+   btnRow.add(this.btnReset); btnRow.add(this.btnApply);
    btnRow.addStretch();
-   btnRow.add(this.btnCreate);
-   btnRow.add(this.btnClose);
+   btnRow.add(this.btnCreate); btnRow.add(this.btnClose);
 
-   // ── LAYOUT ────────────────────────────────────────────────
-   var rightPanel=new Sizer(true); rightPanel.spacing=8;
-   rightPanel.add(imgRow);
-   rightPanel.add(this.g1);
-   rightPanel.add(this.g2);
-   rightPanel.addStretch();
-   rightPanel.add(btnRow);
+   // ── Right control panel ───────────────────────────────────
+   var ctrlPanel=new Sizer(true); ctrlPanel.spacing=8;
+   ctrlPanel.add(imgRow);
+   ctrlPanel.add(zRow);
+   ctrlPanel.add(this.g1);
+   ctrlPanel.add(this.g2);
+   ctrlPanel.addStretch();
+   ctrlPanel.add(btnRow);
 
+   // ── Main layout: canvas left, controls right ──────────────
    var mainRow=new Sizer(false); mainRow.spacing=8;
    mainRow.add(this.canvas);
-   mainRow.add(rightPanel);
+   mainRow.add(ctrlPanel);
 
    this.sizer=new Sizer(true);
    this.sizer.margin=8;
@@ -366,30 +443,39 @@ function EasyStretchDialog() {
 
 EasyStretchDialog.prototype=new Dialog;
 
+EasyStretchDialog.prototype.updateLevelButtons=function(){
+   this.btnZ2.enabled=this.zoomMode;
+   this.btnZ4.enabled=this.zoomMode;
+   this.btnZ8.enabled=this.zoomMode;
+};
+
+EasyStretchDialog.prototype.renderPreview=function(){
+   if(this.lastRes===null) return;
+   if(this.zoomMode){
+      this.previewBitmap=renderZoom(this.lastRes,
+         this.zoomCX,this.zoomCY,this.zoomLevel,this.PW,this.PH);
+   } else {
+      this.previewBitmap=renderFull(this.lastRes,this.PW,this.PH);
+   }
+   this.canvas.repaint();
+};
+
 EasyStretchDialog.prototype.doRefresh=function(){
    if(this.busy) return;
    this.busy=true;
    try{
       this.lastRes=processImage(this.previewImg,this.p);
-      this.previewBitmap=renderBitmap(this.lastRes,this.PW,this.PH);
-      this.canvas.repaint();
+      this.renderPreview();
    }catch(e){Console.writeln("Error: "+e);}
    this.busy=false;
 };
 
 function main(){
    Console.hide();
-   if(Parameters.isViewTarget){
-      // Called from Process container — not supported
-      Console.criticalln("EasyStretch must be run as a Script, not a Process.");
-      return;
-   }
    var dlg=new EasyStretchDialog();
-   if(!dlg.srcView){
-      Console.criticalln("EasyStretch: No open images found. Please open an image first.");
-      return;
-   }
+   if(!dlg.srcView){Console.criticalln("No open images found!");return;}
    dlg.execute();
 }
 
 main();
+
