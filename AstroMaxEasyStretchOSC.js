@@ -251,7 +251,7 @@ function scaleImage(img,f) {
 // NEW: saturation and star protection as final steps
 function processImage(src,p) {
    var img=cloneImg(src);
-   if (p.blackpoint>0) runHT(img,p.blackpoint*0.27,0.5,1);
+   if (p.blackpoint>0) runHT(img,p.blackpoint*0.50,0.5,1);
    if (p.stretch>0) {
       var m=Math.pow(2,-(1+p.stretch*0.35));
       runHT(img,0,Math.max(0.001,Math.min(0.49,m)),1);
@@ -304,17 +304,15 @@ function normParams(img) {
 
 // ── Auto-Stretch: statistically derives blackpoint + stretch ─
 // Formula: places sky background at ~15% of output range.
-// Derivation: invert HT midtone equation for target output=0.15.
-// Works best on linear (unstretched) images.
+// Clip at 80% of median — sigma-independent, robust for smooth calibrated OSC images
+// where MAD≈0 (sigma formula would give x≈0 and stretch→∞).
 function autoStretchParams(img) {
-   var med   = img.median();
-   var sigma = img.MAD() * 1.4826; if (sigma < 1e-5) sigma = 0.001;
-   var bkp   = Math.max(0, med - 2.5 * sigma);
-   var bkpSlider  = Math.min(0.10, bkp / 0.27);   // cap slider at 0.10 max; scale×0.27 maps natural bkp≈0.027 → slider=0.10
-   var actualClip = bkpSlider * 0.27;              // real clip value sent to HT (matches processImage scale)
-   // x = normalised sky position AFTER the actual clip (must match what processImage applies)
+   var med = img.median();
+   // Clip just below sky median (95%) — stable regardless of image noise floor
+   var bkpSlider  = Math.min(0.10, med * 0.95 / 0.50);
+   var actualClip = bkpSlider * 0.50;
+   // x = normalised sky position after clip — maps sky to ~15% output
    var x = (med - actualClip) / Math.max(1e-5, 1.0 - actualClip);
-   // m places sky at ~15% output: inverted from HT midtone eq with output=0.15
    var m = Math.max(0.001, Math.min(0.49, 0.85 * x / (0.7 * x + 0.15)));
    var stretchSlider = Math.max(0, Math.min(30,
       (Math.log(1.0 / m) / Math.LN2 - 1.0) / 0.35));
