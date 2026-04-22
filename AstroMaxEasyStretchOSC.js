@@ -1,5 +1,913 @@
+// ============================================================
+//  AstroMaxEasyStretchOSC.js  v1.3.0
+//  Copyright (C) 2026 Dean Linic
+//  RGB/OSC stretching — single preview with optional zoom
+// ============================================================
+
 #feature-id    Utilities > AstroMax Easy Stretch OSC
 #feature-info  AstroMax Easy Stretch OSC — Interactive stretching for RGB/OSC images with live preview.<br/>
 
-var _$=["Error: ","\u25B6  Apply & Continue","Saturation (0=grey 1=orig)","1.3.0","  Activate  ","|","starProtect","HOSTNAME","stretch","blackpoint","Midtones  (L=dark R=light)","\u274C  Trial expired \u2014 activation required","","Star Protection","Name:","2 \u00B7 Background \u00B7 Midtones \u00B7 Highlights \u00B7 Colour","  Re-activate  ","_es_tmp_","\u26A1  Auto Stretch","Sky Smooth (0=off 1=max)","\u23F3  Trial active \u2014 ","Image:","Highlights (L=dark R=light)","8x","\u2705  Activated successfully! Close and reopen the script.","AstroMax \u2014 License","Please enter a preset name.","skySmooth","midtones","]","Close","AstroMax","\uD83D\uDD11  License","\u229F  Reset Zoom","USERNAME","4x","Level:","\u2705  License activated","AstroMax2025#Nebula$7x9qK!mP","\uD83D\uDCC2  Load","highlights","Statistically compute Blackpoint + Stretch to place sky at ~15%.\nWorks best on linear (unstretched) images.","Could not load preset.","_","License key (activated):","\u2705  Create New Photo","Blackpoint","\uD83D\uDCBE  Save","Select all and copy (Ctrl+A, Ctrl+C)","Drag rectangle on preview to zoom in","Background","No open images found.\nPlease open an image first.","trial:","AstroMaxTmp","/AstroMax/AstroMaxEasyStretchOSC/licenseKey","Show your HWID and activate license","saturation","_AstroMax"," day","/AstroMax/PresetList/OSC","|ASTROMAX-V1|","-- Select --","/AstroMax/hwid","Bake parameters and reset sliders for next layer.","AstroMax Easy Stretch OSC v","background","00000000","x  \u2014  click 'Reset Zoom' to go back","USER","\uD83D\uDDD1  Delete","ok","expired"," left","COMPUTERNAME","Contrast","Zoom ","\u274C  Invalid key \u2014 make sure you sent the exact HWID above.","s","1 \u00B7 General Stretch","General Stretch","\u21BA  Reset","Send your HWID to the author together with proof of purchase.\nYou will receive a license key by email.","3 \u00B7 Presets","contrast","0123456789ABCDEF","Saved:","  \u2022  Trial: ","AstroMaxEasyStretchOSC","AstroMax Easy Stretch OSC","2x","/AstroMax/Presets/OSC/","Apply all parameters and create new image. Original untouched.",":","Your HWID:","  [layer "," remaining","Enter license key:","/AstroMax/trialStart","-"];var _$r=[87,54,97,62,38,12,66,34,68,73,7,43,84,60,98,70,52,71,25,37,20,58,77,95,11,81,93,48,44,96,16,4,24,76,30,3,53,90,59,5,64,31,75,67,92,21,49,33,36,89,35,23,78,46,9,79,8,74,83,18,41,15,50,65,10,28,22,40,2,56,13,6,19,27,82,14,47,26,85,39,69,42,80,1,63,94,29,45,91,57,32,55,61,0,17,51,88,86,72];function __S(i){return _$[_$r[i]];}
-var LIC_PRODUCT_NAME=__S(0);var LIC_SETTINGS_KEY=__S(1);var LIC_TRIAL_KEY=__S(2);var LIC_HWID_KEY=__S(3);var LIC_TRIAL_DAYS=30;var LIC_SECRET=__S(4);function _cr(str){function _es(_fw,_dj){return(_fw>>>_dj)|(_fw<<(32-_dj));}var _c=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];var H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];var _aa=[];for(var _ca=0;_ca<str.length;_ca++){var _au=str.charCodeAt(_ca);if(_au<0x80)_aa.push(_au);else if(_au<0x800){_aa.push(0xC0|(_au>>6));_aa.push(0x80|(_au&0x3F));}else{_aa.push(0xE0|(_au>>12));_aa.push(0x80|((_au>>6)&0x3F));_aa.push(0x80|(_au&0x3F));}}var _ag=_aa.length*8;_aa.push(0x80);while(_aa.length%64!==56)_aa.push(0);for(var _ca=7;_ca>=0;_ca--)_aa.push((_ag/Math.pow(2,_ca*8))&0xFF);for(var _ah=0;_ah<_aa.length;_ah+=64){var _l=[];for(var _ca=0;_ca<16;_ca++)_l[_ca]=(_aa[_ah+_ca*4]<<24)|(_aa[_ah+_ca*4+1]<<16)|(_aa[_ah+_ca*4+2]<<8)|_aa[_ah+_ca*4+3];for(var _ca=16;_ca<64;_ca++){var _ex=_es(_l[_ca-15],7)^_es(_l[_ca-15],18)^(_l[_ca-15]>>>3);var _ey=_es(_l[_ca-2],17)^_es(_l[_ca-2],19)^(_l[_ca-2]>>>10);_l[_ca]=(_l[_ca-16]+_ex+_l[_ca-7]+_ey)>>>0;}var _q=H[0],b_=H[1],_au=H[2],_ba=H[3],e=H[4],f=H[5],_bm=H[6],h=H[7];for(var _ca=0;_ca<64;_ca++){var _j=_es(e,6)^_es(e,11)^_es(e,25);var _av=(e&f)^(~e&_bm);var _fp=(h+_j+_av+_c[_ca]+_l[_ca])>>>0;var _h=_es(_q,2)^_es(_q,13)^_es(_q,22);var _df=(_q&b_)^(_q&_au)^(b_&_au);var _fq=(_h+_df)>>>0;h=_bm;_bm=f;f=e;e=(_ba+_fp)>>>0;_ba=_au;_au=b_;b_=_q;_q=(_fp+_fq)>>>0;}H[0]=(H[0]+_q)>>>0;H[1]=(H[1]+b_)>>>0;H[2]=(H[2]+_au)>>>0;H[3]=(H[3]+_ba)>>>0;H[4]=(H[4]+e)>>>0;H[5]=(H[5]+f)>>>0;H[6]=(H[6]+_bm)>>>0;H[7]=(H[7]+h)>>>0;}var _bs=__S(5);for(var _ca=0;_ca<8;_ca++)_bs+=(__S(6)+H[_ca].toString(16)).slice(-8);return _bs.toUpperCase();}function _co(){var _fs=getEnvironmentVariable(__S(7))||getEnvironmentVariable(__S(8))||__S(5);var _bu=getEnvironmentVariable(__S(9))||getEnvironmentVariable(__S(10))||__S(5);var _el=(_fs+__S(11)+_bu).toUpperCase().replace(/[^A-Z0-9_]/g,__S(5));if(_el.length>=4){if(!Settings.read(LIC_HWID_KEY,13))Settings.write(LIC_HWID_KEY,13,_el);return _el;}var _fi=Settings.read(LIC_HWID_KEY,13);if(_fi&&_fi.length>=4)return _fi;var id=__S(5);var _bz=__S(12);for(var _ca=0;_ca<16;_ca++)id+=_bz[Math.floor(Math.random()*16)];Settings.write(LIC_HWID_KEY,13,id);return id;}function _cq(_bw){var _br=_cr(_bw.trim().toUpperCase()+__S(13)+LIC_SECRET);var _bn=[];for(var _ca=0;_ca<20;_ca+=4)_bn.push(_br.substring(_ca,_ca+4));return _bn.join(__S(14));}function _cu(_ci){if(!_ci)return false;var _bw=_co();var _bi=_cq(_bw);return _ci.trim().toUpperCase().replace(/\s/g,__S(5))===_bi.replace(/-/g,__S(5)).substring(0,20)||_ci.trim().toUpperCase()===_bi;}function _ct(){var _fi=Settings.read(LIC_TRIAL_KEY,13);if(_fi===null||_fi===undefined){Settings.write(LIC_TRIAL_KEY,13,new Date().getTime().toString());return LIC_TRIAL_DAYS;}var _fg=parseFloat(_fi);if(isNaN(_fg)){Settings.write(LIC_TRIAL_KEY,13,new Date().getTime().toString());return LIC_TRIAL_DAYS;}return Math.max(0,Math.floor(LIC_TRIAL_DAYS-(new Date().getTime()-_fg)/86400000));}function _cp(){var _ci=Settings.read(LIC_SETTINGS_KEY,13);return _cu(_ci);}function _cn(){if(_cp())return __S(15);var _ba=_ct();return _ba>0?__S(16)+_ba:__S(17);}function _cs(){var _bw=_co();var _r=_cp();var _bc=_r?-1:_ct();var _be=new Dialog();_be.windowTitle=__S(18);_be.userResizable=false;var _fh=new Label(_be);if(_r){_fh.text=__S(19);}else if(_bc>0){_fh.text=__S(20)+_bc+__S(21)+(_bc!==1?__S(22):__S(5))+__S(23);}else{_fh.text=__S(24);}var _di=new Label(_be);_di.text=__S(25);_di.wordWrapping=true;_di.minWidth=380;var _by=new Label(_be);_by.text=__S(26);var _bx=new Edit(_be);_bx.text=_bw;_bx.readOnly=true;_bx.minWidth=380;_bx.toolTip=__S(27);var _ck=new Label(_be);_ck.text=_r?__S(28):__S(29);var _cj=new Edit(_be);_cj.minWidth=380;if(_r){var _fj=Settings.read(LIC_SETTINGS_KEY,13);_cj.text=_fj?_fj:__S(5);_cj.readOnly=true;}var _bj=new Label(_be);_bj.text=__S(5);_bj.minWidth=380;var _al=new PushButton(_be);_al.text=_r?__S(30):__S(31);_al.enabled=!_r;_al.onClick=function(){var _ch=_cj.text.trim();if(_cu(_ch)){Settings.write(LIC_SETTINGS_KEY,13,_ch);_bj.text=__S(32);_al.enabled=false;_cj.readOnly=true;}else{_bj.text=__S(33);}};var _an=new PushButton(_be);_an.text=__S(34);_an.onClick=function(){_be.ok();};var _aq=new Sizer(false);_aq.spacing=6;if(!_r)_aq.add(_al);_aq.addStretch();_aq.add(_an);_be.sizer=new Sizer(true);_be.sizer.margin=14;_be.sizer.spacing=8;_be.sizer.add(_fh);_be.sizer.add(_di);_be.sizer.add(_by);_be.sizer.add(_bx);_be.sizer.add(_ck);_be.sizer.add(_cj);_be.sizer.add(_bj);_be.sizer.add(_aq);_be.adjustToContents();return _be.execute()===Dialog.Ok;}var _a=__S(35);var G_TMP=null;function _aw(src){var _ba=new Image(src.width,src.height,src.numberOfChannels,src.colorSpace,src.bitsPerSample,src.sampleType);_ba.assign(src);return _ba;}function _bh(_cd){if(G_TMP===null||G_TMP.isNull){G_TMP=new ImageWindow(_cd.width,_cd.height,_cd.numberOfChannels,_cd.bitsPerSample,_cd.isReal,_cd.numberOfChannels>1,__S(36));G_TMP.hide();}}function _et(_cd,_cw,mid,_bt){_cw=Math.max(0,Math.min(0.98,_cw));_bt=Math.max(_cw+0.005,Math.min(1,_bt));mid=Math.max(0.001,Math.min(0.999,mid));_bh(_cd);G_TMP.mainView.beginProcess(0);G_TMP.mainView.image.assign(_cd);G_TMP.mainView.endProcess();var _bv=new HistogramTransformation;_bv.H=[[_cw,mid,_bt,0,1],[_cw,mid,_bt,0,1],[_cw,mid,_bt,0,1],[0,0.5,1,0,1],[_cw,mid,_bt,0,1]];_bv.executeOn(G_TMP.mainView);_cd.assign(G_TMP.mainView.image);}function _fd(_cd,f){var _ds=Math.max(1,Math.round(_cd.width*f));var _dp=Math.max(1,Math.round(_cd.height*f));var _dx=new Image(_ds,_dp,_cd.numberOfChannels,_cd.colorSpace,_cd.bitsPerSample,_cd.sampleType);_dx.assign(_cd);_dx.resample(f);return _dx;}function _eg(src,p){var _cd=_aw(src);if(p.blackpoint>0)_et(_cd,p.blackpoint*0.27,0.5,1);if(p.stretch>0){var _cz=Math.pow(2,-(1+p.stretch*0.35));_et(_cd,0,Math.max(0.001,Math.min(0.49,_cz)),1);}if(p.contrast!==0){var _cw=p.contrast>0?p.contrast*0.03:0;var _bt=p.contrast>0?1:1+p.contrast*0.03;_et(_cd,_cw,0.5,_bt);}if(p.background!==0){var _ai=p.background<0?-p.background*0.04:0;var _ad=p.background>0?1-p.background*0.04:1;_et(_cd,_ai,0.5,_ad);}if(Math.abs(p.midtones-0.5)>0.001){var _da=1.0-p.midtones;_et(_cd,0,Math.max(0.05,Math.min(0.95,_da)),1);}if(p.highlights<0.49){_cd.invert();var _bp=(0.5-p.highlights)*3.0;_et(_cd,0,Math.max(0.05,Math.min(0.45,0.5-_bp*0.08)),1);_cd.invert();}else if(p.highlights>0.51){var _bq=(p.highlights-0.5)*3.0;var _bo=Math.min(0.45,_bq*0.12);_et(_cd,_bo,Math.max(0.05,Math.min(0.45,0.5-_bq*0.08)),1);}if(p.saturation!==undefined&&Math.abs(p.saturation-1.0)>0.002)_t(_cd,p.saturation);if(p.starProtect!==undefined&&p.starProtect>0.001)_v(_cd,p.starProtect);if(p.skySmooth!==undefined&&p.skySmooth>0.001)_u(_cd,p.skySmooth);return _cd;}function _dr(_cd){var _de=_cd.median(),_cw,range;if(_de>0.05){_cw=0;range=1.0;}else{var _db=_cd.MAD();if(_db<1e-7)_db=0.001;var _ew=_db*1.4826;_cw=Math.max(0,_de-2.8*_ew);range=Math.min(1.0,_de+20.0*_ew)-_cw;if(range<0.0001)range=0.0001;}return{_cw:_cw,range:range};}function _y(_cd){var _de=_cd.median();var sigma=_cd.MAD()*1.4826;if(sigma<1e-5)sigma=0.001;var _ae=Math.max(0,_de-2.5*sigma);var _af=Math.min(0.10,_ae/0.27);var _s=_af*0.27;var _fw=(_de-_s)/Math.max(1e-5,1.0-_s);var _cz=Math.max(0.001,Math.min(0.49,0.85*_fw/(0.7*_fw+0.15)));var _fk=Math.max(0,Math.min(30,(Math.log(1.0/_cz)/Math.LN2-1.0)/0.35));return{blackpoint:_af,stretch:_fk};}function _t(_cd,factor){if(_cd.numberOfChannels<3)return;var _fv=_cd.width,h=_cd.height,np=_fv*h;var _em=new Rect(0,0,_fv,h);var _ac=new Float32Array(np),bG=new Float32Array(np),bB=new Float32Array(np);_cd.getSamples(_ac,_em,0);_cd.getSamples(bG,_em,1);_cd.getSamples(bB,_em,2);for(var _ca=0;_ca<np;_ca++){var _cy=0.2126*_ac[_ca]+0.7152*bG[_ca]+0.0722*bB[_ca];_ac[_ca]=Math.min(1,Math.max(0,_cy+(_ac[_ca]-_cy)*factor));bG[_ca]=Math.min(1,Math.max(0,_cy+(bG[_ca]-_cy)*factor));bB[_ca]=Math.min(1,Math.max(0,_cy+(bB[_ca]-_cy)*factor));}_cd.setSamples(_ac,_em,0);_cd.setSamples(bG,_em,1);_cd.setSamples(bB,_em,2);}function _u(_cd,amount){if(amount<=0.001)return;var sigma=amount*2.5;var _fr=0.25;_bh(_cd);G_TMP.mainView.beginProcess(0);G_TMP.mainView.image.assign(_cd);G_TMP.mainView.endProcess();try{var _ax=new Convolution;_ax.mode=0;_ax.sigma=sigma;_ax.executeOn(G_TMP.mainView,false);}catch(e){return;}var _aj=G_TMP.mainView.image;var _fv=_cd.width,h=_cd.height,np=_fv*h;var _em=new Rect(0,0,_fv,h);for(var _au=0;_au<_cd.numberOfChannels;_au++){var _ab=new Float32Array(np),bB=new Float32Array(np);_cd.getSamples(_ab,_em,_au);_aj.getSamples(bB,_em,_au);for(var _ca=0;_ca<np;_ca++){var _ft=_ab[_ca];var _fo=Math.max(0,Math.min(1,(_ft-0.70*_fr)/(0.30*_fr)));_ab[_ca]=_fo*_ft+(1-_fo)*bB[_ca];}_cd.setSamples(_ab,_em,_au);}}function _v(_cd,protect){var threshold=1.0-protect*0.25;var _dd=1.0-threshold;var _fv=_cd.width,h=_cd.height,np=_fv*h;var _em=new Rect(0,0,_fv,h);var _do=_cd.numberOfChannels;var _as=[];for(var _au=0;_au<_do;_au++){var _aa=new Float32Array(np);_cd.getSamples(_aa,_em,_au);_as.push(_aa);}for(var _ca=0;_ca<np;_ca++){for(var _au=0;_au<_do;_au++){var _ft=_as[_au][_ca];if(_ft>threshold)_as[_au][_ca]=threshold+(_ft-threshold)/(1.0+(_ft-threshold)/_dd*3.0*protect);}}for(var _au=0;_au<_do;_au++)_cd.setSamples(_as[_au],_em,_au);}var _e=__S(37);var _d=__S(38);function _dv(){var _cv=Settings.read(_d,13)||__S(5);var _el=_cv?_cv.split(__S(39)):[];var _eq=[];for(var _ca=0;_ca<_el.length;_ca++)if(_el[_ca].length>0)_eq.push(_el[_ca]);return _eq;}function _dw(_dm,p){var _bb=JSON.stringify({blackpoint:p.blackpoint,stretch:p.stretch,contrast:p.contrast,background:p.background,midtones:p.midtones,highlights:p.highlights,saturation:p.saturation,starProtect:p.starProtect,skySmooth:p.skySmooth});Settings.write(_e+_dm,13,_bb);var _dn=_dv();var _bl=false;for(var _ca=0;_ca<_dn.length;_ca++)if(_dn[_ca]===_dm){_bl=true;break;}if(!_bl)_dn.push(_dm);Settings.write(_d,13,_dn.join(__S(39)));}function _du(_dm){var _cg=Settings.read(_e+_dm,13);if(!_cg||_cg.length===0)return null;try{return JSON.parse(_cg);}catch(e){return null;}}function _dt(_dm){Settings.write(_e+_dm,13,__S(5));var _dn=_dv();var _bk=[];for(var _ca=0;_ca<_dn.length;_ca++)if(_dn[_ca]!==_dm)_bk.push(_dn[_ca]);Settings.write(_d,13,_bk.join(__S(39)));}function _en(_cd,_l,H){var _fc=Math.min(_l/_cd.width,H/_cd.height);var _bf=Math.max(1,Math.round(_cd.width*_fc));var _bd=Math.max(1,Math.round(_cd.height*_fc));var _fb=_fd(_cd,_fc);var _dj=_dr(_cd);var _ak=new Bitmap(_bf,_bd);var _av=_fb.numberOfChannels;for(var _fy=0;_fy<_bd;_fy++)for(var _fw=0;_fw<_bf;_fw++){var _ek,_bm,_aa;if(_av===1){var _ft=Math.min(1,Math.max(0,(_fb.sample(_fw,_fy,0)-_dj._cw)/_dj.range));_ek=_bm=_aa=Math.round(_ft*255);}else{_ek=Math.min(255,Math.max(0,Math.round((_fb.sample(_fw,_fy,0)-_dj._cw)/_dj.range*255)));_bm=Math.min(255,Math.max(0,Math.round((_fb.sample(_fw,_fy,1)-_dj._cw)/_dj.range*255)));_aa=Math.min(255,Math.max(0,Math.round((_fb.sample(_fw,_fy,2)-_dj._cw)/_dj.range*255)));}_ak.setPixel(_fw,_fy,(0xFF<<24)|(_ek<<16)|(_bm<<8)|_aa);}return _ak;}function _eo(_cd,cx,cy,level,_l,H){var _az=1.0/level,_av=1.0/level;var _fx=Math.max(0,Math.min(1-_az,cx-_az/2));var _fz=Math.max(0,Math.min(1-_av,cy-_av/2));var _fl=_cd.width,sh=_cd.height;var _ei=Math.max(0,Math.min(_fl-1,Math.round(_fx*_fl)));var _ej=Math.max(0,Math.min(sh-1,Math.round(_fz*sh)));var _eh=Math.max(1,Math.round(_az*_fl));var _eb=Math.max(1,Math.round(_av*sh));var _fc=Math.min(_l/_eh,H/_eb);var _bf=Math.max(1,Math.round(_eh*_fc));var _bd=Math.max(1,Math.round(_eb*_fc));var _dj=_dr(_cd);var _ak=new Bitmap(_bf,_bd);var _cb=_cd.numberOfChannels;for(var _fy=0;_fy<_bd;_fy++){var _fn=Math.max(0,Math.min(sh-1,_ej+Math.round(_fy/_fc)));for(var _fw=0;_fw<_bf;_fw++){var _fm=Math.max(0,Math.min(_fl-1,_ei+Math.round(_fw/_fc)));var _ek,_bm,_aa;if(_cb===1){var _ft=Math.min(1,Math.max(0,(_cd.sample(_fm,_fn,0)-_dj._cw)/_dj.range));_ek=_bm=_aa=Math.round(_ft*255);}else{_ek=Math.min(255,Math.max(0,Math.round((_cd.sample(_fm,_fn,0)-_dj._cw)/_dj.range*255)));_bm=Math.min(255,Math.max(0,Math.round((_cd.sample(_fm,_fn,1)-_dj._cw)/_dj.range*255)));_aa=Math.min(255,Math.max(0,Math.round((_cd.sample(_fm,_fn,2)-_dj._cw)/_dj.range*255)));}_ak.setPixel(_fw,_fy,(0xFF<<24)|(_ek<<16)|(_bm<<8)|_aa);}}return _ak;}function _b(){this.__base__=Dialog;this.__base__();this.windowTitle=__S(40)+_a;this.userResizable=true;var _fe=this;var windows=ImageWindow.windows;this.imageWindows=[];for(var _ca=0;_ca<windows.length;_ca++){var _fv=windows[_ca];if(!_fv.isNull&&!_fv.mainView.isNull&&_fv.mainView.id.indexOf(__S(41))<0)this.imageWindows.push(_fv);}if(this.imageWindows.length===0){this.srcView=null;return;}this.srcWin=this.imageWindows[0];this.srcView=this.srcWin.mainView;this.origImg=_aw(this.srcView.image);this.busy=false;this.appliedLayers=0;var _k=0.25;this._k=_k;this.previewImg=_fd(this.origImg,_k);_bh(this.previewImg);this.p={blackpoint:0,stretch:5,contrast:0,background:0,midtones:0.5,highlights:0.5,saturation:1.0,starProtect:0,skySmooth:0};this.lastRes=null;this.previewBitmap=null;this.zoomMode=false;this.zoomCX=0.5;this.zoomCY=0.5;this.zoomLevel=4;this.dragStart=null;this.dragRect=null;var _g=750;var _f=Math.round(_g*this.origImg.height/this.origImg.width);if(_f>600){_f=600;_g=Math.round(_f*this.origImg.width/this.origImg.height);}this._g=_g;this._f=_f;this.canvas=new Control(this);this.canvas.setMinSize(_g,_f);this.canvas.onResize=function(wNew,hNew){_fe._g=wNew;_fe._f=hNew;if(_fe.lastRes!==null)_fe.renderPreview();else _fe.canvas.repaint();};this.canvas.onPaint=function(){var _bm=new VectorGraphics(_fe.canvas);var _az=_fe.canvas.width,_av=_fe.canvas.height;_bm.fillRect(0,0,_az,_av,new Brush(0xFF111111));if(_fe.previewBitmap!==null){var _at=_fe.previewBitmap.width,bh=_fe.previewBitmap.height;var _dy=Math.max(0,Math.round((_az-_at)/2));var _dz=Math.max(0,Math.round((_av-bh)/2));_bm.drawBitmap(_dy,_dz,_fe.previewBitmap);if(!_fe.zoomMode&&_fe.dragRect!==null){_bm.pen=new Pen(0xFFFFFF00,1);_bm.drawRect(_fe.dragRect._fw,_fe.dragRect._fy,_fe.dragRect._fw+_fe.dragRect._fv,_fe.dragRect._fy+_fe.dragRect.h);}if(_fe.zoomMode){_bm.pen=new Pen(0xFFFFFF88,1);_bm.drawText(8,18,__S(42)+_fe.zoomLevel+__S(43));}}_bm.end();};this.canvas.onMousePress=function(_fw,_fy,btn){if(_fe.zoomMode)return;_fe.dragStart={_fw:_fw,_fy:_fy};_fe.dragRect=null;};this.canvas.onMouseMove=function(_fw,_fy,btn){if(_fe.dragStart===null||_fe.zoomMode)return;_fe.dragRect={_fw:Math.min(_fe.dragStart._fw,_fw),_fy:Math.min(_fe.dragStart._fy,_fy),_fv:Math.abs(_fw-_fe.dragStart._fw),h:Math.abs(_fy-_fe.dragStart._fy)};_fe.canvas.repaint();};this.canvas.onMouseRelease=function(_fw,_fy,btn){if(_fe.zoomMode||_fe.dragStart===null)return;if(_fe.dragRect!==null&&_fe.dragRect._fv>15&&_fe.dragRect.h>15&&_fe.previewBitmap!==null){var _at=_fe.previewBitmap.width,bh=_fe.previewBitmap.height;var _dy=Math.max(0,Math.round((_fe.canvas.width-_at)/2));var _dz=Math.max(0,Math.round((_fe.canvas.height-bh)/2));var _ev=(_fe.dragRect._fw-_dy)/_at,ry=(_fe.dragRect._fy-_dz)/bh;var _eu=_fe.dragRect._fv/_at,rh=_fe.dragRect.h/bh;_fe.zoomCX=Math.max(0,Math.min(1,_ev+_eu/2));_fe.zoomCY=Math.max(0,Math.min(1,ry+rh/2));var _z=(_eu+rh)/2;_fe.zoomLevel=2;_fe.btnZoomReset.enabled=true;_fe.zoomMode=true;_fe.updateLevelButtons();_fe.renderPreview();}_fe.dragStart=null;_fe.dragRect=null;};function _dh(lbl,_cw,_bt,def,prec,_ci){var _cl=new Label(_fe);_cl.text=lbl+__S(44);_cl.minWidth=180;var _ff=new Slider(_fe);_ff.minWidth=190;_ff.setRange(0,500);var _bg=new Edit(_fe);_bg.readOnly=true;_bg.minWidth=62;_bg.maxWidth=62;function _fu(_ft){return Math.round((_ft-_cw)/(_bt-_cw)*500);}function _ez(_ew){return _cw+_ew/500*(_bt-_cw);}_ff.value=_fu(def);_bg.text=def.toFixed(prec);_ff.onValueUpdated=function(_ew){var _ft=parseFloat(_ez(_ew).toFixed(prec));_bg.text=_ft.toFixed(prec);_fe.p[_ci]=_ft;_fe.doRefresh();};var _er=new Sizer(false);_er.spacing=4;_er.add(_cl);_er.add(_ff);_er.add(_bg);_er.setValue=function(_ft){_bg.text=_ft.toFixed(prec);_ff.value=_fu(_ft);_fe.p[_ci]=_ft;};_er.setEnabled=function(_ft){_ff.enabled=_ft;_bg.enabled=_ft;_cl.enabled=_ft;};return _er;}function _dg(_fo){var _bm=new GroupBox(_fe);_bm.title=_fo;_bm.sizer=new Sizer(true);_bm.sizer.margin=6;_bm.sizer.spacing=5;return _bm;}var _ce=new Label(this);_ce.text=__S(45);_ce.minWidth=45;this.imgCombo=new ComboBox(this);for(var _ca=0;_ca<this.imageWindows.length;_ca++)this.imgCombo.addItem(this.imageWindows[_ca].mainView.id);this.imgCombo.currentItem=0;this.imgCombo.onItemSelected=function(_cc){_fe.srcWin=_fe.imageWindows[_cc];_fe.srcView=_fe.srcWin.mainView;_fe.origImg=_aw(_fe.srcView.image);_fe.previewImg=_fd(_fe.origImg,_fe._k);if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}_bh(_fe.previewImg);_fe.appliedLayers=0;_fe.zoomMode=false;_fe.btnZoomReset.enabled=false;_fe.windowTitle=__S(40)+_a;var _dl=750;var _dk=Math.round(_dl*_fe.origImg.height/_fe.origImg.width);if(_dk>600){_dk=600;_dl=Math.round(_dk*_fe.origImg.width/_fe.origImg.height);}_fe._g=_dl;_fe._f=_dk;_fe.canvas.setMinSize(_dl,_dk);_fe.adjustToContents();_fe.doRefresh();};var _cf=new Sizer(false);_cf.spacing=6;_cf.add(_ce);_cf.add(this.imgCombo);_cf.addStretch();var _ga=new Label(this);_ga.text=__S(46);this.btnZoomReset=new PushButton(this);this.btnZoomReset.text=__S(47);this.btnZoomReset.enabled=false;this.btnZoomReset.onClick=function(){_fe.zoomMode=false;_fe.btnZoomReset.enabled=false;_fe.updateLevelButtons();_fe.renderPreview();};var _gb=new Label(this);_gb.text=__S(48);this.btnZ2=new PushButton(this);this.btnZ2.text=__S(49);this.btnZ2.minWidth=36;this.btnZ4=new PushButton(this);this.btnZ4.text=__S(50);this.btnZ4.minWidth=36;this.btnZ8=new PushButton(this);this.btnZ8.text=__S(51);this.btnZ8.minWidth=36;this.btnZ2.onClick=function(){_fe.zoomLevel=2;if(_fe.zoomMode)_fe.renderPreview();};this.btnZ4.onClick=function(){_fe.zoomLevel=4;if(_fe.zoomMode)_fe.renderPreview();};this.btnZ8.onClick=function(){_fe.zoomLevel=8;if(_fe.zoomMode)_fe.renderPreview();};var _gc=new Sizer(false);_gc.spacing=6;_gc.add(_ga);_gc.addStretch();_gc.add(this.btnZoomReset);_gc.add(_gb);_gc.add(this.btnZ2);_gc.add(this.btnZ4);_gc.add(this.btnZ8);this.g1=_dg(__S(52));this.slBlackpoint=_dh(__S(53),0,1,0,3,__S(54));this.slStretch=_dh(__S(55),0,30,5,2,__S(56));this.slContrast=_dh(__S(57),-8,8,0,2,__S(58));var _am=new PushButton(this);_am.text=__S(59);_am.toolTip=__S(60);_am.onClick=function(){var _ea=_y(_fe.previewImg);_fe.slBlackpoint.setValue(_ea.blackpoint);_fe.slStretch.setValue(_ea.stretch);_fe.doRefresh();};var _x=new Sizer(false);_x.spacing=6;_x.addStretch();_x.add(_am);this.g1.sizer.add(this.slBlackpoint);this.g1.sizer.add(this.slStretch);this.g1.sizer.add(this.slContrast);this.g1.sizer.add(_x);this.g2=_dg(__S(61));this.slBackground=_dh(__S(62),-3,3,0,3,__S(63));this.slMidtones=_dh(__S(64),0.02,0.98,0.5,3,__S(65));this.slHighlights=_dh(__S(66),0.2,0.8,0.5,3,__S(67));this.slSaturation=_dh(__S(68),0,2.5,1.0,2,__S(69));this.slStarProtect=_dh(__S(70),0,1,0,2,__S(71));this.slSkySmooth=_dh(__S(72),0,1,0,2,__S(73));this.g2.sizer.add(this.slBackground);this.g2.sizer.add(this.slMidtones);this.g2.sizer.add(this.slHighlights);this.g2.sizer.add(this.slSaturation);this.g2.sizer.add(this.slStarProtect);this.g2.sizer.add(this.slSkySmooth);this.g3=_dg(__S(74));var _ef=new Label(this);_ef.text=__S(75);_ef.minWidth=50;var _ee=new Edit(this);_ee.minWidth=150;_ee.text=__S(5);var _ar=new PushButton(this);_ar.text=__S(76);_ar.onClick=function(){var _dm=_ee.text.trim();if(!_dm){(new MessageBox(__S(77),__S(41),StdIcon_Information)).execute();return;}_dw(_dm,_fe.p);_fe.updatePresetCombo();};var _fa=new Sizer(false);_fa.spacing=6;_fa.add(_ef);_fa.add(_ee);_fa.addStretch();_fa.add(_ar);var _ed=new Label(this);_ed.text=__S(78);_ed.minWidth=50;this.presetCombo=new ComboBox(this);this.presetCombo.minWidth=150;var _ap=new PushButton(this);_ap.text=__S(79);var _ao=new PushButton(this);_ao.text=__S(80);_ap.onClick=function(){var _cc=_fe.presetCombo.currentItem-1;if(_cc<0)return;var _dn=_dv();if(_cc>=_dn.length)return;var _ec=_du(_dn[_cc]);if(!_ec){(new MessageBox(__S(81),__S(41),StdIcon_Error)).execute();return;}if(_ec.blackpoint!==undefined)_fe.slBlackpoint.setValue(_ec.blackpoint);if(_ec.stretch!==undefined)_fe.slStretch.setValue(_ec.stretch);if(_ec.contrast!==undefined)_fe.slContrast.setValue(_ec.contrast);if(_ec.background!==undefined)_fe.slBackground.setValue(_ec.background);if(_ec.midtones!==undefined)_fe.slMidtones.setValue(_ec.midtones);if(_ec.highlights!==undefined)_fe.slHighlights.setValue(_ec.highlights);if(_ec.saturation!==undefined)_fe.slSaturation.setValue(_ec.saturation);if(_ec.starProtect!==undefined)_fe.slStarProtect.setValue(_ec.starProtect);if(_ec.skySmooth!==undefined)_fe.slSkySmooth.setValue(_ec.skySmooth);_fe.doRefresh();};_ao.onClick=function(){var _cc=_fe.presetCombo.currentItem-1;if(_cc<0)return;var _dn=_dv();if(_cc>=_dn.length)return;_dt(_dn[_cc]);_fe.updatePresetCombo();};var _cx=new Sizer(false);_cx.spacing=6;_cx.add(_ed);_cx.add(this.presetCombo);_cx.addStretch();_cx.add(_ap);_cx.add(_ao);this.g3.sizer.add(_fa);this.g3.sizer.add(_cx);this.updatePresetCombo();this.btnReset=new PushButton(this);this.btnReset.text=__S(82);this.btnReset.onClick=function(){_fe.slBlackpoint.setValue(0);_fe.slStretch.setValue(5);_fe.slContrast.setValue(0);_fe.slBackground.setValue(0);_fe.slMidtones.setValue(0.5);_fe.slHighlights.setValue(0.5);_fe.slSaturation.setValue(1.0);_fe.slStarProtect.setValue(0);_fe.slSkySmooth.setValue(0);_fe.doRefresh();};this.btnApply=new PushButton(this);this.btnApply.text=__S(83);this.btnApply.toolTip=__S(84);this.btnApply.onClick=function(){_fe.previewImg=_eg(_fe.previewImg,_fe.p);_fe.origImg=_eg(_fe.origImg,_fe.p);_fe.appliedLayers++;_fe.slBlackpoint.setValue(0);_fe.slStretch.setValue(0);_fe.slContrast.setValue(0);_fe.slBackground.setValue(0);_fe.slMidtones.setValue(0.5);_fe.slHighlights.setValue(0.5);_fe.slSaturation.setValue(1.0);_fe.slStarProtect.setValue(0);_fe.slSkySmooth.setValue(0);if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}_bh(_fe.previewImg);_fe.windowTitle=__S(40)+_a+__S(85)+_fe.appliedLayers+__S(86);_fe.doRefresh();};this.btnCreate=new PushButton(this);this.btnCreate.text=__S(87);this.btnCreate.toolTip=__S(88);this.btnCreate.onClick=function(){if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}_bh(_fe.origImg);var _ep=_eg(_fe.origImg,_fe.p);var _dq=_fe.srcView.id+__S(89);var _ds=new ImageWindow(_ep.width,_ep.height,_ep.numberOfChannels,_ep.bitsPerSample,_ep.isReal,_ep.numberOfChannels>1,_dq);_ds.mainView.beginProcess(0);_ds.mainView.image.assign(_ep);_ds.mainView.endProcess();_ds.show();_ds.bringToFront();if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}_bh(_fe.previewImg);};this._an=new PushButton(this);this._an.text=__S(34);this._an.onClick=function(){if(G_TMP&&!G_TMP.isNull)G_TMP.forceClose();G_TMP=null;_fe.cancel();};this.btnLicense=new PushButton(this);this.btnLicense.text=__S(90);this.btnLicense.toolTip=__S(91);this.btnLicense.onClick=function(){_cs();};var _aq=new Sizer(false);_aq.spacing=6;_aq.add(this.btnLicense);_aq.add(this.btnReset);_aq.add(this.btnApply);_aq.addStretch();_aq.add(this.btnCreate);_aq.add(this._an);var _ay=new Sizer(true);_ay.spacing=8;_ay.add(_cf);_ay.add(_gc);_ay.add(this.g1);_ay.add(this.g2);_ay.add(this.g3);_ay.addStretch();_ay.add(_aq);var _dc=new Sizer(false);_dc.spacing=8;_dc.add(this.canvas,100);_dc.add(_ay,0);this.sizer=new Sizer(true);this.sizer.margin=8;this.sizer.add(_dc);this.adjustToContents();this.doRefresh();}_b.prototype=new Dialog;_b.prototype.updatePresetCombo=function(){this.presetCombo.clear();this.presetCombo.addItem(__S(92));var _dn=_dv();for(var _ca=0;_ca<_dn.length;_ca++)this.presetCombo.addItem(_dn[_ca]);};_b.prototype.updateLevelButtons=function(){this.btnZ2.enabled=this.zoomMode;this.btnZ4.enabled=this.zoomMode;this.btnZ8.enabled=this.zoomMode;};_b.prototype.renderPreview=function(){if(this.lastRes===null)return;if(this.zoomMode){this.previewBitmap=_eo(this.lastRes,this.zoomCX,this.zoomCY,this.zoomLevel,this._g,this._f);}else{this.previewBitmap=_en(this.lastRes,this._g,this._f);}this.canvas.repaint();};_b.prototype.doRefresh=function(){if(this.busy)return;this.busy=true;try{this.lastRes=_eg(this.previewImg,this.p);this.renderPreview();}catch(e){Console.writeln(__S(93)+e);}this.busy=false;};function main(){if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}var _p=ImageWindow.windows;for(var _m=_p.length-1;_m>=0;_m--){var _o=_p[_m];if(!_o.isNull&&_o.mainView&&!_o.mainView.isNull){var _n=_o.mainView.id;if(_n===__S(36)||_n===__S(94)){_o.forceClose();}}}Console.hide();var _cm=_cn();if(_cm===__S(17)){if(!_cs())return;}var _be=new _b();if(_be.srcView===null||_be.srcView===undefined){(new MessageBox(__S(95),__S(96),StdIcon_Error)).execute();return;}if(_cm.indexOf(__S(16))===0){var _bc=parseInt(_cm.split(__S(44))[1]);_be.windowTitle=_be.windowTitle+__S(97)+_bc+__S(21)+(_bc!==1?__S(22):__S(5))+__S(98);}_be.execute();}main();
+// ============================================================
+//  LICENSE & TRIAL SYSTEM  (HWID-based, SHA-256 validation)
+//  Trial: 30 days from first run, shared across all AstroMax scripts
+//  Key:   sha256(HWID + "|ASTROMAX-V1|" + SECRET)[0..19] in 5x4 hex groups
+// ============================================================
+var LIC_PRODUCT_NAME = "AstroMaxEasyStretchOSC";
+var LIC_SETTINGS_KEY = "/AstroMax/AstroMaxEasyStretchOSC/licenseKey";
+var LIC_TRIAL_KEY    = "/AstroMax/trialStart";
+var LIC_HWID_KEY     = "/AstroMax/hwid";
+var LIC_TRIAL_DAYS   = 30;
+var LIC_SECRET       = "AstroMax2025#Nebula$7x9qK!mP";
+
+// ── Compact SHA-256 (pure JS, no dependencies) ─────────────
+function licSHA256(str) {
+   function rr(x,n){return(x>>>n)|(x<<(32-n));}
+   var K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+          0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+          0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+          0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+          0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+          0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+          0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+          0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+   var H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
+          0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+   // UTF-8 encode
+   var b=[];
+   for(var i=0;i<str.length;i++){
+      var c=str.charCodeAt(i);
+      if(c<0x80)b.push(c);
+      else if(c<0x800){b.push(0xC0|(c>>6));b.push(0x80|(c&0x3F));}
+      else{b.push(0xE0|(c>>12));b.push(0x80|((c>>6)&0x3F));b.push(0x80|(c&0x3F));}
+   }
+   var bl=b.length*8;
+   b.push(0x80);
+   while(b.length%64!==56)b.push(0);
+   for(var i=7;i>=0;i--)b.push((bl/Math.pow(2,i*8))&0xFF);
+   // Process blocks
+   for(var blk=0;blk<b.length;blk+=64){
+      var W=[];
+      for(var i=0;i<16;i++)
+         W[i]=(b[blk+i*4]<<24)|(b[blk+i*4+1]<<16)|(b[blk+i*4+2]<<8)|b[blk+i*4+3];
+      for(var i=16;i<64;i++){
+         var s0=rr(W[i-15],7)^rr(W[i-15],18)^(W[i-15]>>>3);
+         var s1=rr(W[i-2],17)^rr(W[i-2],19)^(W[i-2]>>>10);
+         W[i]=(W[i-16]+s0+W[i-7]+s1)>>>0;
+      }
+      var a=H[0],b_=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7];
+      for(var i=0;i<64;i++){
+         var S1=rr(e,6)^rr(e,11)^rr(e,25);
+         var ch=(e&f)^(~e&g);
+         var t1=(h+S1+ch+K[i]+W[i])>>>0;
+         var S0=rr(a,2)^rr(a,13)^rr(a,22);
+         var mj=(a&b_)^(a&c)^(b_&c);
+         var t2=(S0+mj)>>>0;
+         h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b_;b_=a;a=(t1+t2)>>>0;
+      }
+      H[0]=(H[0]+a)>>>0;H[1]=(H[1]+b_)>>>0;H[2]=(H[2]+c)>>>0;H[3]=(H[3]+d)>>>0;
+      H[4]=(H[4]+e)>>>0;H[5]=(H[5]+f)>>>0;H[6]=(H[6]+g)>>>0;H[7]=(H[7]+h)>>>0;
+   }
+   var hex="";
+   for(var i=0;i<8;i++)hex+=("00000000"+H[i].toString(16)).slice(-8);
+   return hex.toUpperCase();
+}
+
+// ── HWID — username + computername from env vars ───────────
+function licGetHWID() {
+   var user = getEnvironmentVariable("USERNAME") || getEnvironmentVariable("USER") || "";
+   var host = getEnvironmentVariable("COMPUTERNAME") || getEnvironmentVariable("HOSTNAME") || "";
+   var raw  = (user + "_" + host).toUpperCase().replace(/[^A-Z0-9_]/g,"");
+   if (raw.length >= 4) {
+      if (!Settings.read(LIC_HWID_KEY, 13))
+         Settings.write(LIC_HWID_KEY, 13, raw);
+      return raw;
+   }
+   var stored = Settings.read(LIC_HWID_KEY, 13);
+   if (stored && stored.length >= 4) return stored;
+   var id = ""; var hx = "0123456789ABCDEF";
+   for (var i = 0; i < 16; i++) id += hx[Math.floor(Math.random()*16)];
+   Settings.write(LIC_HWID_KEY, 13, id);
+   return id;
+}
+
+// ── Key validation ─────────────────────────────────────────
+function licKeyForHWID(hwid) {
+   var hash = licSHA256(hwid.trim().toUpperCase() + "|ASTROMAX-V1|" + LIC_SECRET);
+   var groups = [];
+   for (var i = 0; i < 20; i += 4) groups.push(hash.substring(i, i+4));
+   return groups.join("-");
+}
+
+function licValidateKey(key) {
+   if (!key) return false;
+   var hwid = licGetHWID();
+   var expected = licKeyForHWID(hwid);
+   return key.trim().toUpperCase().replace(/\s/g,"") === expected.replace(/-/g,"").substring(0,20)
+          || key.trim().toUpperCase() === expected;
+}
+
+// ── Trial ──────────────────────────────────────────────────
+function licTrialDaysLeft() {
+   var stored = Settings.read(LIC_TRIAL_KEY, 13);
+   if (stored === null || stored === undefined) {
+      Settings.write(LIC_TRIAL_KEY, 13, new Date().getTime().toString());
+      return LIC_TRIAL_DAYS;
+   }
+   var startMs = parseFloat(stored);
+   if (isNaN(startMs)) {
+      Settings.write(LIC_TRIAL_KEY, 13, new Date().getTime().toString());
+      return LIC_TRIAL_DAYS;
+   }
+   return Math.max(0, Math.floor(LIC_TRIAL_DAYS - (new Date().getTime()-startMs)/86400000));
+}
+
+function licIsActivated() {
+   var key = Settings.read(LIC_SETTINGS_KEY, 13);
+   return licValidateKey(key);
+}
+
+function licCheck() {
+   if (licIsActivated()) return "ok";
+   var d = licTrialDaysLeft();
+   return d > 0 ? "trial:" + d : "expired";
+}
+
+// ── License / Activation dialog ────────────────────────────
+function licShowActivationDialog() {
+   var hwid      = licGetHWID();
+   var activated = licIsActivated();
+   var daysLeft  = activated ? -1 : licTrialDaysLeft();
+
+   var dlg = new Dialog();
+   dlg.windowTitle = "AstroMax \u2014 License";
+   dlg.userResizable = false;
+
+   var statusTitleLbl = new Label(dlg);
+   if (activated) {
+      statusTitleLbl.text = "\u2705  License activated";
+   } else if (daysLeft > 0) {
+      statusTitleLbl.text = "\u23F3  Trial active \u2014 " + daysLeft + " day" + (daysLeft !== 1 ? "s" : "") + " remaining";
+   } else {
+      statusTitleLbl.text = "\u274C  Trial expired \u2014 activation required";
+   }
+
+   var msgLbl = new Label(dlg);
+   msgLbl.text = "Send your HWID to the author together with proof of purchase.\nYou will receive a license key by email.";
+   msgLbl.wordWrapping = true; msgLbl.minWidth = 380;
+
+   var hwidLbl = new Label(dlg);
+   hwidLbl.text = "Your HWID:";
+   var hwidEdit = new Edit(dlg);
+   hwidEdit.text = hwid; hwidEdit.readOnly = true; hwidEdit.minWidth = 380;
+   hwidEdit.toolTip = "Select all and copy (Ctrl+A, Ctrl+C)";
+
+   var keyLbl = new Label(dlg);
+   keyLbl.text = activated ? "License key (activated):" : "Enter license key:";
+   var keyEdit = new Edit(dlg); keyEdit.minWidth = 380;
+   if (activated) {
+      var storedKey = Settings.read(LIC_SETTINGS_KEY, 13);
+      keyEdit.text = storedKey ? storedKey : "";
+      keyEdit.readOnly = true;
+   }
+
+   var feedbackLbl = new Label(dlg);
+   feedbackLbl.text = ""; feedbackLbl.minWidth = 380;
+
+   var btnActivate = new PushButton(dlg);
+   btnActivate.text = activated ? "  Re-activate  " : "  Activate  ";
+   btnActivate.enabled = !activated;
+   btnActivate.onClick = function() {
+      var k = keyEdit.text.trim();
+      if (licValidateKey(k)) {
+         Settings.write(LIC_SETTINGS_KEY, 13, k);
+         feedbackLbl.text = "\u2705  Activated successfully! Close and reopen the script.";
+         btnActivate.enabled = false;
+         keyEdit.readOnly = true;
+      } else {
+         feedbackLbl.text = "\u274C  Invalid key \u2014 make sure you sent the exact HWID above.";
+      }
+   };
+
+   var btnClose = new PushButton(dlg);
+   btnClose.text = "Close";
+   btnClose.onClick = function() { dlg.ok(); };
+
+   var btnRow = new Sizer(false); btnRow.spacing = 6;
+   if (!activated) btnRow.add(btnActivate);
+   btnRow.addStretch(); btnRow.add(btnClose);
+
+   dlg.sizer = new Sizer(true); dlg.sizer.margin = 14; dlg.sizer.spacing = 8;
+   dlg.sizer.add(statusTitleLbl);
+   dlg.sizer.add(msgLbl);
+   dlg.sizer.add(hwidLbl);  dlg.sizer.add(hwidEdit);
+   dlg.sizer.add(keyLbl);   dlg.sizer.add(keyEdit);
+   dlg.sizer.add(feedbackLbl);
+   dlg.sizer.add(btnRow);
+   dlg.adjustToContents();
+   return dlg.execute() === Dialog.Ok;
+}
+
+var EASYSTRETCH_VERSION = "1.3.0";
+var G_TMP = null;
+
+function cloneImg(src) {
+   var d=new Image(src.width,src.height,src.numberOfChannels,
+                   src.colorSpace,src.bitsPerSample,src.sampleType);
+   d.assign(src); return d;
+}
+
+function ensureTmp(img) {
+   if (G_TMP===null||G_TMP.isNull) {
+      G_TMP=new ImageWindow(img.width,img.height,
+         img.numberOfChannels,img.bitsPerSample,img.isReal,
+         img.numberOfChannels>1,"AstroMaxTmp");
+      G_TMP.hide();
+   }
+}
+
+function runHT(img,lo,mid,hi) {
+   lo=Math.max(0,Math.min(0.98,lo));
+   hi=Math.max(lo+0.005,Math.min(1,hi));
+   mid=Math.max(0.001,Math.min(0.999,mid));
+   ensureTmp(img);
+   G_TMP.mainView.beginProcess(0);
+   G_TMP.mainView.image.assign(img);
+   G_TMP.mainView.endProcess();
+   var ht=new HistogramTransformation;
+   ht.H=[[lo,mid,hi,0,1],[lo,mid,hi,0,1],[lo,mid,hi,0,1],[0,0.5,1,0,1],[lo,mid,hi,0,1]];
+   ht.executeOn(G_TMP.mainView);
+   img.assign(G_TMP.mainView.image);
+}
+
+function scaleImage(img,f) {
+   var nw=Math.max(1,Math.round(img.width*f));
+   var nh=Math.max(1,Math.round(img.height*f));
+   var out=new Image(nw,nh,img.numberOfChannels,img.colorSpace,img.bitsPerSample,img.sampleType);
+   out.assign(img); out.resample(f); return out;
+}
+
+// ── processImage ─────────────────────────────────────────────
+// FIX: highlights lo is now dynamic (was hardcoded 0.6 → aggressive clip)
+// NEW: saturation and star protection as final steps
+function processImage(src,p) {
+   var img=cloneImg(src);
+   if (p.blackpoint>0) runHT(img,p.blackpoint*0.27,0.5,1);
+   if (p.stretch>0) {
+      var m=Math.pow(2,-(1+p.stretch*0.35));
+      runHT(img,0,Math.max(0.001,Math.min(0.49,m)),1);
+   }
+   if (p.contrast!==0) {
+      var lo=p.contrast>0?p.contrast*0.03:0;
+      var hi=p.contrast>0?1:1+p.contrast*0.03;
+      runHT(img,lo,0.5,hi);
+   }
+   if (p.background!==0) {
+      var blo=p.background<0?-p.background*0.04:0;
+      var bhi=p.background>0?1-p.background*0.04:1;
+      runHT(img,blo,0.5,bhi);
+   }
+   if (Math.abs(p.midtones-0.5)>0.001) {
+      var mMid=1.0-p.midtones;
+      runHT(img,0,Math.max(0.05,Math.min(0.95,mMid)),1);
+   }
+   if (p.highlights<0.49) {
+      img.invert();
+      var hStr=(0.5-p.highlights)*3.0;
+      runHT(img,0,Math.max(0.05,Math.min(0.45,0.5-hStr*0.08)),1);
+      img.invert();
+   } else if (p.highlights>0.51) {
+      var hStr2=(p.highlights-0.5)*3.0;
+      var hLo=Math.min(0.45,hStr2*0.12);   // dynamic lo — prevents aggressive clip at 0.6
+      runHT(img,hLo,Math.max(0.05,Math.min(0.45,0.5-hStr2*0.08)),1);
+   }
+   if (p.saturation!==undefined && Math.abs(p.saturation-1.0)>0.002)
+      applySaturation(img,p.saturation);
+   if (p.starProtect!==undefined && p.starProtect>0.001)
+      applyStarProtection(img,p.starProtect);
+   if (p.skySmooth!==undefined && p.skySmooth>0.001)
+      applySkySmooth(img,p.skySmooth);
+   return img;
+}
+
+function normParams(img) {
+   var med=img.median(), lo, range;
+   if (med>0.05) { lo=0; range=1.0; }
+   else {
+      var mad=img.MAD(); if(mad<1e-7) mad=0.001;
+      var s=mad*1.4826;
+      lo=Math.max(0,med-2.8*s);
+      range=Math.min(1.0,med+20.0*s)-lo;
+      if(range<0.0001) range=0.0001;
+   }
+   return {lo:lo,range:range};
+}
+
+// ── Auto-Stretch: statistically derives blackpoint + stretch ─
+// Formula: places sky background at ~15% of output range.
+// Derivation: invert HT midtone equation for target output=0.15.
+// Works best on linear (unstretched) images.
+function autoStretchParams(img) {
+   var med   = img.median();
+   var sigma = img.MAD() * 1.4826; if (sigma < 1e-5) sigma = 0.001;
+   var bkp   = Math.max(0, med - 2.5 * sigma);
+   var bkpSlider  = Math.min(0.10, bkp / 0.27);   // cap slider at 0.10 max; scale×0.27 maps natural bkp≈0.027 → slider=0.10
+   var actualClip = bkpSlider * 0.27;              // real clip value sent to HT (matches processImage scale)
+   // x = normalised sky position AFTER the actual clip (must match what processImage applies)
+   var x = (med - actualClip) / Math.max(1e-5, 1.0 - actualClip);
+   // m places sky at ~15% output: inverted from HT midtone eq with output=0.15
+   var m = Math.max(0.001, Math.min(0.49, 0.85 * x / (0.7 * x + 0.15)));
+   var stretchSlider = Math.max(0, Math.min(30,
+      (Math.log(1.0 / m) / Math.LN2 - 1.0) / 0.35));
+   return { blackpoint: bkpSlider, stretch: stretchSlider };
+}
+
+// ── Luma-preserving saturation ───────────────────────────────
+// factor: 0 = greyscale, 1 = original, >1 = boosted
+function applySaturation(img, factor) {
+   if (img.numberOfChannels < 3) return;
+   var w=img.width, h=img.height, np=w*h;
+   var rect=new Rect(0,0,w,h);
+   var bR=new Float32Array(np), bG=new Float32Array(np), bB=new Float32Array(np);
+   img.getSamples(bR,rect,0); img.getSamples(bG,rect,1); img.getSamples(bB,rect,2);
+   for (var i=0; i<np; i++) {
+      var lum=0.2126*bR[i]+0.7152*bG[i]+0.0722*bB[i];
+      bR[i]=Math.min(1,Math.max(0,lum+(bR[i]-lum)*factor));
+      bG[i]=Math.min(1,Math.max(0,lum+(bG[i]-lum)*factor));
+      bB[i]=Math.min(1,Math.max(0,lum+(bB[i]-lum)*factor));
+   }
+   img.setSamples(bR,rect,0); img.setSamples(bG,rect,1); img.setSamples(bB,rect,2);
+}
+
+// ── Sky Smooth: background noise reduction ───────────────────
+// Blurs background pixels (below threshold) using PI's Convolution,
+// then blends: background → blurred, galaxy/stars → original.
+// amount 0→1: Gaussian sigma 0→2.5 pixels. Works on any image size.
+function applySkySmooth(img, amount) {
+   if (amount <= 0.001) return;
+   var sigma = amount * 2.5;
+   var thr   = 0.25;  // pixels above this are "galaxy" — fully preserved
+   ensureTmp(img);
+   G_TMP.mainView.beginProcess(0);
+   G_TMP.mainView.image.assign(img);
+   G_TMP.mainView.endProcess();
+   try {
+      var conv = new Convolution;
+      conv.mode  = 0;     // Parametric
+      conv.sigma = sigma;
+      conv.executeOn(G_TMP.mainView, false);
+   } catch(e) { return; }  // graceful fallback if Convolution unavailable
+   var blurred = G_TMP.mainView.image;
+   var w=img.width, h=img.height, np=w*h;
+   var rect=new Rect(0,0,w,h);
+   for (var c=0; c<img.numberOfChannels; c++) {
+      var bO=new Float32Array(np), bB=new Float32Array(np);
+      img.getSamples(bO,rect,c);
+      blurred.getSamples(bB,rect,c);
+      for (var i=0; i<np; i++) {
+         var v=bO[i];
+         // blend weight: 0 (fully blurred) below 0.70*thr; 1 (original) above thr
+         var t=Math.max(0,Math.min(1,(v-0.70*thr)/(0.30*thr)));
+         bO[i]=t*v+(1-t)*bB[i];
+      }
+      img.setSamples(bO,rect,c);
+   }
+}
+
+// ── Soft highlight roll-off (star protection) ────────────────
+// Compresses highlights above threshold using a smooth curve.
+// protect=0: no effect; protect=1: pixels above 0.75 are soft-clipped.
+function applyStarProtection(img, protect) {
+   var threshold = 1.0 - protect * 0.25;
+   var maxExcess = 1.0 - threshold;
+   var w=img.width, h=img.height, np=w*h;
+   var rect=new Rect(0,0,w,h);
+   var nch=img.numberOfChannels;
+   var bufs=[];
+   for (var c=0; c<nch; c++) {
+      var b=new Float32Array(np); img.getSamples(b,rect,c); bufs.push(b);
+   }
+   for (var i=0; i<np; i++) {
+      for (var c=0; c<nch; c++) {
+         var v=bufs[c][i];
+         if (v>threshold)
+            bufs[c][i]=threshold+(v-threshold)/(1.0+(v-threshold)/maxExcess*3.0*protect);
+      }
+   }
+   for (var c=0; c<nch; c++) img.setSamples(bufs[c],rect,c);
+}
+
+// ── Presets ──────────────────────────────────────────────────
+var OSC_PRESET_PREFIX  = "/AstroMax/Presets/OSC/";
+var OSC_PRESET_LIST    = "/AstroMax/PresetList/OSC";
+
+function oscPresetNames() {
+   var list = Settings.read(OSC_PRESET_LIST, 13) || "";
+   var raw = list ? list.split("|") : [];
+   var result = [];
+   for (var i=0; i<raw.length; i++) if (raw[i].length>0) result.push(raw[i]);
+   return result;
+}
+
+function oscSavePreset(name, p) {
+   var data = JSON.stringify({
+      blackpoint:p.blackpoint, stretch:p.stretch, contrast:p.contrast,
+      background:p.background, midtones:p.midtones, highlights:p.highlights,
+      saturation:p.saturation, starProtect:p.starProtect, skySmooth:p.skySmooth
+   });
+   Settings.write(OSC_PRESET_PREFIX + name, 13, data);
+   var names = oscPresetNames();
+   var found = false;
+   for (var i=0; i<names.length; i++) if (names[i]===name) { found=true; break; }
+   if (!found) names.push(name);
+   Settings.write(OSC_PRESET_LIST, 13, names.join("|"));
+}
+
+function oscLoadPreset(name) {
+   var json = Settings.read(OSC_PRESET_PREFIX + name, 13);
+   if (!json || json.length===0) return null;
+   try { return JSON.parse(json); } catch(e) { return null; }
+}
+
+function oscDeletePreset(name) {
+   Settings.write(OSC_PRESET_PREFIX + name, 13, "");
+   var names = oscPresetNames();
+   var filtered = [];
+   for (var i=0; i<names.length; i++) if (names[i]!==name) filtered.push(names[i]);
+   Settings.write(OSC_PRESET_LIST, 13, filtered.join("|"));
+}
+
+// ── Render helpers ───────────────────────────────────────────
+function renderFull(img,W,H) {
+   var scale=Math.min(W/img.width,H/img.height);
+   var dw=Math.max(1,Math.round(img.width*scale));
+   var dh=Math.max(1,Math.round(img.height*scale));
+   var sc=scaleImage(img,scale);
+   var n=normParams(img);
+   var bmp=new Bitmap(dw,dh);
+   var ch=sc.numberOfChannels;
+   for(var y=0;y<dh;y++) for(var x=0;x<dw;x++) {
+      var r,g,b;
+      if(ch===1){var v=Math.min(1,Math.max(0,(sc.sample(x,y,0)-n.lo)/n.range));r=g=b=Math.round(v*255);}
+      else{r=Math.min(255,Math.max(0,Math.round((sc.sample(x,y,0)-n.lo)/n.range*255)));
+           g=Math.min(255,Math.max(0,Math.round((sc.sample(x,y,1)-n.lo)/n.range*255)));
+           b=Math.min(255,Math.max(0,Math.round((sc.sample(x,y,2)-n.lo)/n.range*255)));}
+      bmp.setPixel(x,y,(0xFF<<24)|(r<<16)|(g<<8)|b);
+   }
+   return bmp;
+}
+
+function renderZoom(img,cx,cy,level,W,H) {
+   var cw=1.0/level, ch=1.0/level;
+   var x0=Math.max(0,Math.min(1-cw,cx-cw/2));
+   var y0=Math.max(0,Math.min(1-ch,cy-ch/2));
+   var sw=img.width, sh=img.height;
+   var px0=Math.max(0,Math.min(sw-1,Math.round(x0*sw)));
+   var py0=Math.max(0,Math.min(sh-1,Math.round(y0*sh)));
+   var pw=Math.max(1,Math.round(cw*sw));
+   var ph=Math.max(1,Math.round(ch*sh));
+   var scale=Math.min(W/pw,H/ph);
+   var dw=Math.max(1,Math.round(pw*scale));
+   var dh=Math.max(1,Math.round(ph*scale));
+   var n=normParams(img);
+   var bmp=new Bitmap(dw,dh);
+   var ich=img.numberOfChannels;
+   for(var y=0;y<dh;y++){
+      var sy=Math.max(0,Math.min(sh-1,py0+Math.round(y/scale)));
+      for(var x=0;x<dw;x++){
+         var sx=Math.max(0,Math.min(sw-1,px0+Math.round(x/scale)));
+         var r,g,b;
+         if(ich===1){var v=Math.min(1,Math.max(0,(img.sample(sx,sy,0)-n.lo)/n.range));r=g=b=Math.round(v*255);}
+         else{r=Math.min(255,Math.max(0,Math.round((img.sample(sx,sy,0)-n.lo)/n.range*255)));
+              g=Math.min(255,Math.max(0,Math.round((img.sample(sx,sy,1)-n.lo)/n.range*255)));
+              b=Math.min(255,Math.max(0,Math.round((img.sample(sx,sy,2)-n.lo)/n.range*255)));}
+         bmp.setPixel(x,y,(0xFF<<24)|(r<<16)|(g<<8)|b);
+      }
+   }
+   return bmp;
+}
+
+// ============================================================
+//  DIALOG
+// ============================================================
+function EasyStretchDialog() {
+   this.__base__=Dialog;
+   this.__base__();
+   this.windowTitle="AstroMax Easy Stretch OSC v"+EASYSTRETCH_VERSION;
+   this.userResizable=true;
+
+   var self=this;
+
+   var windows=ImageWindow.windows;
+   this.imageWindows=[];
+   for(var i=0;i<windows.length;i++){
+      var w=windows[i];
+      if(!w.isNull&&!w.mainView.isNull
+         &&w.mainView.id.charAt(0)!=='_'
+         &&w.mainView.id.indexOf("AstroMax")<0)
+         this.imageWindows.push(w);
+   }
+   if(this.imageWindows.length===0){this.srcView=null;return;}
+
+   this.srcWin =this.imageWindows[0];
+   this.srcView=this.srcWin.mainView;
+   this.origImg=cloneImg(this.srcView.image);
+   this.busy=false;
+   this.appliedLayers=0;
+
+   var SCALE=0.25;
+   this.SCALE=SCALE;
+   this.previewImg=scaleImage(this.origImg,SCALE);
+   ensureTmp(this.previewImg);
+
+   this.p={blackpoint:0, stretch:5, contrast:0,
+           background:0, midtones:0.5, highlights:0.5,
+           saturation:1.0, starProtect:0, skySmooth:0};
+
+   this.lastRes=null;
+   this.previewBitmap=null;
+   this.zoomMode=false;
+   this.zoomCX=0.5; this.zoomCY=0.5;
+   this.zoomLevel=4;
+   this.dragStart=null;
+   this.dragRect=null;
+
+   var PW=750;
+   var PH=Math.round(PW*this.origImg.height/this.origImg.width);
+   if(PH>600){PH=600;PW=Math.round(PH*this.origImg.width/this.origImg.height);}
+   this.PW=PW; this.PH=PH;
+
+   // ── Canvas ───────────────────────────────────────────────
+   this.canvas=new Control(this);
+   this.canvas.setMinSize(PW,PH);
+   this.canvas.onResize = function(wNew, hNew) {
+      self.PW = wNew; self.PH = hNew;
+      if (self.lastRes !== null) self.renderPreview();
+      else self.canvas.repaint();
+   };
+
+   this.canvas.onPaint=function(){
+      var g=new VectorGraphics(self.canvas);
+      var cw=self.canvas.width, ch=self.canvas.height;
+      g.fillRect(0,0,cw,ch,new Brush(0xFF111111));
+      if(self.previewBitmap!==null){
+         var bw=self.previewBitmap.width, bh=self.previewBitmap.height;
+         var ox=Math.max(0,Math.round((cw-bw)/2));
+         var oy=Math.max(0,Math.round((ch-bh)/2));
+         g.drawBitmap(ox,oy,self.previewBitmap);
+         if(!self.zoomMode && self.dragRect!==null){
+            g.pen=new Pen(0xFFFFFF00,1);
+            g.drawRect(self.dragRect.x,self.dragRect.y,
+                       self.dragRect.x+self.dragRect.w,self.dragRect.y+self.dragRect.h);
+         }
+         if(self.zoomMode){
+            g.pen=new Pen(0xFFFFFF88,1);
+            g.drawText(8,18,"Zoom "+self.zoomLevel+"x  \u2014  click 'Reset Zoom' to go back");
+         }
+      }
+      g.end();
+   };
+
+   this.canvas.onMousePress=function(x,y,btn){
+      if(self.zoomMode) return;
+      self.dragStart={x:x,y:y}; self.dragRect=null;
+   };
+   this.canvas.onMouseMove=function(x,y,btn){
+      if(self.dragStart===null||self.zoomMode) return;
+      self.dragRect={x:Math.min(self.dragStart.x,x),y:Math.min(self.dragStart.y,y),
+                     w:Math.abs(x-self.dragStart.x),h:Math.abs(y-self.dragStart.y)};
+      self.canvas.repaint();
+   };
+   this.canvas.onMouseRelease=function(x,y,btn){
+      if(self.zoomMode||self.dragStart===null) return;
+      if(self.dragRect!==null&&self.dragRect.w>15&&self.dragRect.h>15&&self.previewBitmap!==null){
+         var bw=self.previewBitmap.width, bh=self.previewBitmap.height;
+         var ox=Math.max(0,Math.round((self.canvas.width-bw)/2));
+         var oy=Math.max(0,Math.round((self.canvas.height-bh)/2));
+         var rx=(self.dragRect.x-ox)/bw, ry=(self.dragRect.y-oy)/bh;
+         var rw=self.dragRect.w/bw, rh=self.dragRect.h/bh;
+         self.zoomCX=Math.max(0,Math.min(1,rx+rw/2));
+         self.zoomCY=Math.max(0,Math.min(1,ry+rh/2));
+         var avgSize=(rw+rh)/2;
+         self.zoomLevel=2;
+         self.btnZoomReset.enabled=true; self.zoomMode=true;
+         self.updateLevelButtons(); self.renderPreview();
+      }
+      self.dragStart=null; self.dragRect=null;
+   };
+
+   // ── Helpers ──────────────────────────────────────────────
+   function mkSlider(lbl,lo,hi,def,prec,key){
+      var label=new Label(self); label.text=lbl+":"; label.minWidth=180;
+      var sld=new Slider(self); sld.minWidth=190; sld.setRange(0,500);
+      var edt=new Edit(self); edt.readOnly=true; edt.minWidth=62; edt.maxWidth=62;
+      function v2s(v){return Math.round((v-lo)/(hi-lo)*500);}
+      function s2v(s){return lo+s/500*(hi-lo);}
+      sld.value=v2s(def); edt.text=def.toFixed(prec);
+      sld.onValueUpdated=function(s){
+         var v=parseFloat(s2v(s).toFixed(prec));
+         edt.text=v.toFixed(prec); self.p[key]=v; self.doRefresh();
+      };
+      var row=new Sizer(false); row.spacing=4;
+      row.add(label); row.add(sld); row.add(edt);
+      row.setValue=function(v){edt.text=v.toFixed(prec);sld.value=v2s(v);self.p[key]=v;};
+      row.setEnabled=function(v){sld.enabled=v;edt.enabled=v;label.enabled=v;};
+      return row;
+   }
+   function mkGroup(t){
+      var g=new GroupBox(self); g.title=t;
+      g.sizer=new Sizer(true); g.sizer.margin=6; g.sizer.spacing=5;
+      return g;
+   }
+
+   // ── Image selector ───────────────────────────────────────
+   var imgLbl=new Label(this); imgLbl.text="Image:"; imgLbl.minWidth=45;
+   this.imgCombo=new ComboBox(this);
+   for(var i=0;i<this.imageWindows.length;i++)
+      this.imgCombo.addItem(this.imageWindows[i].mainView.id);
+   this.imgCombo.currentItem=0;
+   this.imgCombo.onItemSelected=function(idx){
+      self.srcWin=self.imageWindows[idx];
+      self.srcView=self.srcWin.mainView;
+      self.origImg=cloneImg(self.srcView.image);
+      self.previewImg=scaleImage(self.origImg,self.SCALE);
+      if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
+      ensureTmp(self.previewImg);
+      self.appliedLayers=0;
+      self.zoomMode=false;
+      self.btnZoomReset.enabled=false;
+      self.windowTitle="AstroMax Easy Stretch OSC v"+EASYSTRETCH_VERSION;
+      var nPW=750;
+      var nPH=Math.round(nPW*self.origImg.height/self.origImg.width);
+      if(nPH>600){nPH=600;nPW=Math.round(nPH*self.origImg.width/self.origImg.height);}
+      self.PW=nPW; self.PH=nPH;
+      self.canvas.setMinSize(nPW,nPH);
+      self.adjustToContents();
+      self.doRefresh();
+   };
+   var imgRow=new Sizer(false); imgRow.spacing=6;
+   imgRow.add(imgLbl); imgRow.add(this.imgCombo); imgRow.addStretch();
+
+   // ── Zoom controls ────────────────────────────────────────
+   var zHint=new Label(this); zHint.text="Drag rectangle on preview to zoom in";
+   this.btnZoomReset=new PushButton(this); this.btnZoomReset.text="\u229F  Reset Zoom";
+   this.btnZoomReset.enabled=false;
+   this.btnZoomReset.onClick=function(){
+      self.zoomMode=false; self.btnZoomReset.enabled=false;
+      self.updateLevelButtons(); self.renderPreview();
+   };
+   var zLbl=new Label(this); zLbl.text="Level:";
+   this.btnZ2=new PushButton(this); this.btnZ2.text="2x"; this.btnZ2.minWidth=36;
+   this.btnZ4=new PushButton(this); this.btnZ4.text="4x"; this.btnZ4.minWidth=36;
+   this.btnZ8=new PushButton(this); this.btnZ8.text="8x"; this.btnZ8.minWidth=36;
+   this.btnZ2.onClick=function(){self.zoomLevel=2;if(self.zoomMode)self.renderPreview();};
+   this.btnZ4.onClick=function(){self.zoomLevel=4;if(self.zoomMode)self.renderPreview();};
+   this.btnZ8.onClick=function(){self.zoomLevel=8;if(self.zoomMode)self.renderPreview();};
+   var zRow=new Sizer(false); zRow.spacing=6;
+   zRow.add(zHint); zRow.addStretch();
+   zRow.add(this.btnZoomReset); zRow.add(zLbl);
+   zRow.add(this.btnZ2); zRow.add(this.btnZ4); zRow.add(this.btnZ8);
+
+   // ── Group 1 · General Stretch ────────────────────────────
+   this.g1=mkGroup("1 \u00B7 General Stretch");
+   this.slBlackpoint=mkSlider("Blackpoint",      0,  1, 0,  3,"blackpoint");
+   this.slStretch   =mkSlider("General Stretch", 0, 30, 5,  2,"stretch"   );
+   this.slContrast  =mkSlider("Contrast",       -8,  8, 0,  2,"contrast"  );
+
+   var btnAutoStretch=new PushButton(this);
+   btnAutoStretch.text="\u26A1  Auto Stretch";
+   btnAutoStretch.toolTip="Statistically compute Blackpoint + Stretch to place sky at ~15%.\nWorks best on linear (unstretched) images.";
+   btnAutoStretch.onClick=function(){
+      var params=autoStretchParams(self.previewImg);
+      self.slBlackpoint.setValue(params.blackpoint);
+      self.slStretch.setValue(params.stretch);
+      self.doRefresh();
+   };
+   var autoRow=new Sizer(false); autoRow.spacing=6;
+   autoRow.addStretch(); autoRow.add(btnAutoStretch);
+
+   this.g1.sizer.add(this.slBlackpoint);
+   this.g1.sizer.add(this.slStretch);
+   this.g1.sizer.add(this.slContrast);
+   this.g1.sizer.add(autoRow);
+
+   // ── Group 2 · Background · Midtones · Highlights · Colour ─
+   this.g2=mkGroup("2 \u00B7 Background \u00B7 Midtones \u00B7 Highlights \u00B7 Colour");
+   this.slBackground =mkSlider("Background",                  -3,   3,   0,   3,"background");
+   this.slMidtones   =mkSlider("Midtones  (L=dark R=light)",   0.02,0.98, 0.5, 3,"midtones"  );
+   this.slHighlights =mkSlider("Highlights (L=dark R=light)",  0.2, 0.8,  0.5, 3,"highlights");
+   this.slSaturation =mkSlider("Saturation (0=grey 1=orig)",   0,   2.5,  1.0, 2,"saturation");
+   this.slStarProtect=mkSlider("Star Protection",              0,   1,    0,   2,"starProtect");
+   this.slSkySmooth  =mkSlider("Sky Smooth (0=off 1=max)",     0,   1,    0,   2,"skySmooth"  );
+   this.g2.sizer.add(this.slBackground);
+   this.g2.sizer.add(this.slMidtones);
+   this.g2.sizer.add(this.slHighlights);
+   this.g2.sizer.add(this.slSaturation);
+   this.g2.sizer.add(this.slStarProtect);
+   this.g2.sizer.add(this.slSkySmooth);
+
+   // ── Group 3 · Presets ────────────────────────────────────
+   this.g3=mkGroup("3 \u00B7 Presets");
+
+   var presetNameLbl=new Label(this); presetNameLbl.text="Name:"; presetNameLbl.minWidth=50;
+   var presetNameEdit=new Edit(this); presetNameEdit.minWidth=150; presetNameEdit.text="";
+   var btnSavePreset=new PushButton(this); btnSavePreset.text="\uD83D\uDCBE  Save";
+   btnSavePreset.onClick=function(){
+      var name=presetNameEdit.text.trim();
+      if(!name){
+         (new MessageBox("Please enter a preset name.","AstroMax",StdIcon_Information)).execute();
+         return;
+      }
+      oscSavePreset(name,self.p);
+      self.updatePresetCombo();
+   };
+   var saveRow=new Sizer(false); saveRow.spacing=6;
+   saveRow.add(presetNameLbl); saveRow.add(presetNameEdit);
+   saveRow.addStretch(); saveRow.add(btnSavePreset);
+
+   var presetLoadLbl=new Label(this); presetLoadLbl.text="Saved:"; presetLoadLbl.minWidth=50;
+   this.presetCombo=new ComboBox(this); this.presetCombo.minWidth=150;
+   var btnLoadPreset=new PushButton(this); btnLoadPreset.text="\uD83D\uDCC2  Load";
+   var btnDelPreset =new PushButton(this); btnDelPreset.text ="\uD83D\uDDD1  Delete";
+
+   btnLoadPreset.onClick=function(){
+      var idx=self.presetCombo.currentItem-1; if(idx<0) return;
+      var names=oscPresetNames(); if(idx>=names.length) return;
+      var pp=oscLoadPreset(names[idx]);
+      if(!pp){ (new MessageBox("Could not load preset.","AstroMax",StdIcon_Error)).execute(); return; }
+      if(pp.blackpoint !==undefined) self.slBlackpoint.setValue(pp.blackpoint);
+      if(pp.stretch    !==undefined) self.slStretch.setValue(pp.stretch);
+      if(pp.contrast   !==undefined) self.slContrast.setValue(pp.contrast);
+      if(pp.background !==undefined) self.slBackground.setValue(pp.background);
+      if(pp.midtones   !==undefined) self.slMidtones.setValue(pp.midtones);
+      if(pp.highlights !==undefined) self.slHighlights.setValue(pp.highlights);
+      if(pp.saturation !==undefined) self.slSaturation.setValue(pp.saturation);
+      if(pp.starProtect!==undefined) self.slStarProtect.setValue(pp.starProtect);
+      if(pp.skySmooth  !==undefined) self.slSkySmooth.setValue(pp.skySmooth);
+      self.doRefresh();
+   };
+   btnDelPreset.onClick=function(){
+      var idx=self.presetCombo.currentItem-1; if(idx<0) return;
+      var names=oscPresetNames(); if(idx>=names.length) return;
+      oscDeletePreset(names[idx]);
+      self.updatePresetCombo();
+   };
+
+   var loadRow=new Sizer(false); loadRow.spacing=6;
+   loadRow.add(presetLoadLbl); loadRow.add(this.presetCombo);
+   loadRow.addStretch(); loadRow.add(btnLoadPreset); loadRow.add(btnDelPreset);
+
+   this.g3.sizer.add(saveRow);
+   this.g3.sizer.add(loadRow);
+   this.updatePresetCombo();
+
+   // ── Action buttons ────────────────────────────────────────
+   this.btnReset=new PushButton(this); this.btnReset.text="\u21BA  Reset";
+   this.btnReset.onClick=function(){
+      self.slBlackpoint.setValue(0); self.slStretch.setValue(5);
+      self.slContrast.setValue(0);   self.slBackground.setValue(0);
+      self.slMidtones.setValue(0.5); self.slHighlights.setValue(0.5);
+      self.slSaturation.setValue(1.0); self.slStarProtect.setValue(0);
+      self.slSkySmooth.setValue(0);
+      self.doRefresh();
+   };
+
+   this.btnApply=new PushButton(this); this.btnApply.text="\u25B6  Apply & Continue";
+   this.btnApply.toolTip="Bake parameters and reset sliders for next layer.";
+   this.btnApply.onClick=function(){
+      self.previewImg=processImage(self.previewImg,self.p);
+      self.origImg   =processImage(self.origImg,   self.p);
+      self.appliedLayers++;
+      self.slBlackpoint.setValue(0); self.slStretch.setValue(0);
+      self.slContrast.setValue(0);   self.slBackground.setValue(0);
+      self.slMidtones.setValue(0.5); self.slHighlights.setValue(0.5);
+      self.slSaturation.setValue(1.0); self.slStarProtect.setValue(0);
+      self.slSkySmooth.setValue(0);
+      if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
+      ensureTmp(self.previewImg);
+      self.windowTitle="AstroMax Easy Stretch OSC v"+EASYSTRETCH_VERSION+
+                       "  [layer "+self.appliedLayers+"]";
+      self.doRefresh();
+   };
+
+   this.btnCreate=new PushButton(this); this.btnCreate.text="\u2705  Create New Photo";
+   this.btnCreate.toolTip="Apply all parameters and create new image. Original untouched.";
+   this.btnCreate.onClick=function(){
+      if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
+      ensureTmp(self.origImg);
+      var res=processImage(self.origImg,self.p);
+      var nid=self.srcView.id+"_AstroMax";
+      var nw=new ImageWindow(res.width,res.height,res.numberOfChannels,
+         res.bitsPerSample,res.isReal,res.numberOfChannels>1,nid);
+      nw.mainView.beginProcess(0); nw.mainView.image.assign(res); nw.mainView.endProcess();
+      nw.show(); nw.bringToFront();
+      if(G_TMP&&!G_TMP.isNull){G_TMP.forceClose();G_TMP=null;}
+      ensureTmp(self.previewImg);
+   };
+
+   this.btnClose=new PushButton(this); this.btnClose.text="Close";
+   this.btnClose.onClick=function(){
+      if(G_TMP&&!G_TMP.isNull) G_TMP.forceClose();
+      G_TMP=null;
+      self.cancel();
+   };
+
+   this.btnLicense=new PushButton(this); this.btnLicense.text="\uD83D\uDD11  License";
+   this.btnLicense.toolTip="Show your HWID and activate license";
+   this.btnLicense.onClick=function(){licShowActivationDialog();};
+
+   var btnRow=new Sizer(false); btnRow.spacing=6;
+   btnRow.add(this.btnLicense);
+   btnRow.add(this.btnReset); btnRow.add(this.btnApply);
+   btnRow.addStretch();
+   btnRow.add(this.btnCreate); btnRow.add(this.btnClose);
+
+   // ── Right control panel ───────────────────────────────────
+   var ctrlPanel=new Sizer(true); ctrlPanel.spacing=8;
+   ctrlPanel.add(imgRow);
+   ctrlPanel.add(zRow);
+   ctrlPanel.add(this.g1);
+   ctrlPanel.add(this.g2);
+   ctrlPanel.add(this.g3);
+   ctrlPanel.addStretch();
+   ctrlPanel.add(btnRow);
+
+   // ── Main layout ───────────────────────────────────────────
+   var mainRow=new Sizer(false); mainRow.spacing=8;
+   mainRow.add(this.canvas, 100);
+   mainRow.add(ctrlPanel, 0);
+
+   this.sizer=new Sizer(true);
+   this.sizer.margin=8;
+   this.sizer.add(mainRow);
+
+   this.adjustToContents();
+   this.doRefresh();
+}
+
+EasyStretchDialog.prototype=new Dialog;
+
+EasyStretchDialog.prototype.updatePresetCombo=function(){
+   this.presetCombo.clear();
+   this.presetCombo.addItem("-- Select --");
+   var names=oscPresetNames();
+   for(var i=0;i<names.length;i++) this.presetCombo.addItem(names[i]);
+};
+
+EasyStretchDialog.prototype.updateLevelButtons=function(){
+   this.btnZ2.enabled=this.zoomMode;
+   this.btnZ4.enabled=this.zoomMode;
+   this.btnZ8.enabled=this.zoomMode;
+};
+
+EasyStretchDialog.prototype.renderPreview=function(){
+   if(this.lastRes===null) return;
+   if(this.zoomMode){
+      this.previewBitmap=renderZoom(this.lastRes,
+         this.zoomCX,this.zoomCY,this.zoomLevel,this.PW,this.PH);
+   } else {
+      this.previewBitmap=renderFull(this.lastRes,this.PW,this.PH);
+   }
+   this.canvas.repaint();
+};
+
+EasyStretchDialog.prototype.doRefresh=function(){
+   if(this.busy) return;
+   this.busy=true;
+   try{
+      this.lastRes=processImage(this.previewImg,this.p);
+      this.renderPreview();
+   }catch(e){Console.writeln("Error: "+e);}
+   this.busy=false;
+};
+
+function main() {
+   // Clean up leftover temp windows from previous runs
+   if (G_TMP && !G_TMP.isNull) { G_TMP.forceClose(); G_TMP = null; }
+   var _ws = ImageWindow.windows;
+   for (var _i = _ws.length - 1; _i >= 0; _i--) {
+      var _w = _ws[_i];
+      if (!_w.isNull && _w.mainView && !_w.mainView.isNull) {
+         var _id = _w.mainView.id;
+         if (_id === "AstroMaxTmp" || _id === "_es_tmp_") { _w.forceClose(); }
+      }
+   }
+   Console.hide();
+   var lic = licCheck();
+   if (lic === "expired") {
+      if (!licShowActivationDialog()) return;
+   }
+   var dlg = new EasyStretchDialog();
+   if (dlg.srcView === null || dlg.srcView === undefined) {
+      (new MessageBox("No open images found.\nPlease open an image first.",
+         "AstroMax Easy Stretch OSC", StdIcon_Error)).execute();
+      return;
+   }
+   if (lic.indexOf("trial:") === 0) {
+      var daysLeft = parseInt(lic.split(":")[1]);
+      dlg.windowTitle = dlg.windowTitle + "  \u2022  Trial: " + daysLeft + " day" + (daysLeft !== 1 ? "s" : "") + " left";
+   }
+   dlg.execute();
+}
+
+main();
+
